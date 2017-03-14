@@ -1,9 +1,9 @@
 <?php
 
-namespace app\models;
+namespace frontend\models;
 
 use Yii;
-use app\models\Blog;
+use frontend\models\Blog;
 
 /**
  * This is the model class for table "catalog".

@@ -9,7 +9,7 @@
 namespace frontend\controllers;
 
 
-use app\models\Catalog;
+use frontend\models\Catalog;
 use yii\web\Controller;
 
 class CatalogController extends Controller {

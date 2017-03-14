@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'placeholder'=>"邮箱验证码",
                 ])->label(false); ?>
 
-                <button type="button" class="btn btn-default" style="display: inline-block;">获取邮箱验证码</button>
+                <button type="button" class="btn btn-default" id="sendEmail" style="display: inline-block;">获取邮箱验证码</button>
 
                 <?= $form->field($model, 'password')->passwordInput(); ?>
 
@@ -65,3 +65,20 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
+
+<script>
+    $(function () {
+        $("#sendEmail").on("click",function () {
+            var email = $("#signupform-email").val();
+            $.ajax({
+                url:"index.php?r=site/send-email-code",
+                data:"email="+email,
+                type:"post",
+                success:function (data) {
+                    alert(data);
+                }
+            })
+        })
+    });
+</script>

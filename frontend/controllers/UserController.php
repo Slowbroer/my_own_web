@@ -8,8 +8,8 @@
 
 namespace frontend\controllers;
 header("Access-Control-Allow-Origin:* ");
-use app\models\Blog;
-use app\models\Catalog;
+use frontend\models\Blog;
+use frontend\models\Catalog;
 use common\models\User;
 use Yii;
 use yii\web\Controller;

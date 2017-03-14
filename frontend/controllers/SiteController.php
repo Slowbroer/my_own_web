@@ -212,7 +212,20 @@ class SiteController extends Controller
     }
 
 
+    public function actionSendEmailCode(){
+        if(!empty($_POST['email']))
+        {
+            $code = rand_code();
+            
+
+        }
+    }
+
+
     public function actionTest(){
         return $this->render("test");
     }
+
+
+
 }

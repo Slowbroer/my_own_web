@@ -8,9 +8,9 @@
 
 namespace frontend\controllers;
 
-use app\models\Blog;
-use app\models\Comment;
-use app\models\CommentForm;
+use frontend\models\Blog;
+use frontend\models\Comment;
+use frontend\models\CommentForm;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;

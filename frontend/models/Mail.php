@@ -6,7 +6,7 @@
  * Time: 下午3:43
  */
 
-namespace app\models;
+namespace frontend\models;
 
 
 class Mail
