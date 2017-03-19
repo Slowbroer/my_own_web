@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use frontend\models\CapCode;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -150,7 +151,12 @@ class SiteController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
+            $user = $model->signup();
+            if (is_string($user)) {
+                return $this->render("/site/error",['message'=>$user]);
+            }
+            else
+            {
                 if (Yii::$app->getUser()->login($user)) {
                     return $this->goHome();
                 }
@@ -215,15 +221,55 @@ class SiteController extends Controller
     public function actionSendEmailCode(){
         if(!empty($_POST['email']))
         {
-            $code = rand_code();
-            
 
+//            die($_POST['email']);
+            $code = rand_code();
+
+            $capture = new CapCode();
+            $capture->email = trim($_POST['email']);
+            $capture->code = trim($code);
+            $capture->type = 1;
+            $capture->used = 0;
+            $capture->add_time = time();
+            if($capture->save())
+            {
+                $sendResult = Yii::$app
+                    ->mailer
+                    ->compose(
+                        ['html' => 'registerCode-html', 'text' => 'registerCode-text'],
+                        ['code' => $capture]
+                    )
+                    ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name ])
+                    ->setTo($capture->email)
+                    ->setSubject(Yii::t('common','emailCode') ." 来自 ：". Yii::$app->name)
+                    ->send();
+                //TODO::发送邮件的，配置见main-local.php->components->mailer,这里还要注意Yii::$app->params['supportEmail']这个参数
+
+
+                if($sendResult)
+                {
+                    return "验证码发送成功";
+                }
+                else
+                {
+                    return "发送失败";
+                }
+            }
+            else{
+                return "邮箱格式错误";
+            }
+
+
+
+        }
+        else{
+            return "请填写邮箱";
         }
     }
 
 
     public function actionTest(){
-        return $this->render("test");
+        Yii::$app->security->generatePasswordHash("123456");
     }
 
 

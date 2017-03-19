@@ -47,6 +47,27 @@ return [
             ],
         ],
         */
+
+        'i18n' => [//TODO::这是设置语言包的
+            'translations' => [
+                'title' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    //'basePath' => '/messages',
+                    'fileMap' => [
+                        'title' => 'title.php',
+                    ],
+                ],
+                'common' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    //'basePath' => '/messages',
+                    'fileMap' => [
+                        'common' => 'common.php',
+                    ],
+                ],
+            ],
+        ],
     ],
     'params' => $params,
+    'language' => 'zh-CN',//TODO::这是设置系统语言的
+    'name'=>'Slowbro 的博客网站',
 ];

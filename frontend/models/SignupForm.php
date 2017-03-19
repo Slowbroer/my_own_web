@@ -42,23 +42,41 @@ class SignupForm extends Model
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'username'=>'用户名',
+            'email'=>'电子邮件地址',
+            'password'=>'密码',
+            'emailCode'=>'邮箱验证码',
+        ];
+    }
+
     /**
      * Signs user up.
      *
-     * @return User|null the saved model or null if saving fails
+     * @return User|string the saved model or the reason if saving fails
      */
     public function signup()
     {
         if (!$this->validate()) {
-            return null;
+            return "注册填写信息出错";
         }
-        
-        $user = new User();
-        $user->username = $this->username;
-        $user->email = $this->email;
-        $user->setPassword($this->password);
-        $user->generateAuthKey();
-        
-        return $user->save() ? $user : null;
+        $capture_code = CapCode::find()->where(['email'=>$this->email])->orderBy('id desc')->one();
+
+        if($capture_code && ($capture_code->code==$this->emailCode) && ($capture_code->add_time+60*30 >= time()))
+        {
+            $user = new User();
+            $user->username = $this->username;
+            $user->email = $this->email;
+            $user->setPassword($this->password);
+            $user->generateAuthKey();
+
+            return $user->save() ? $user : "注册失败";
+        }
+        else
+        {
+            return "验证码错误或者已经失效";
+        }
     }
 }

@@ -12,11 +12,13 @@ function rand_code($code_length = 6)
     {
         $code_length = 6;
     }
+
     $min = 1;
-    for ($i=0;$i<$code_length;$i++)
+    for ($i=1;$i<$code_length;$i++)
     {
         $min = $min*10;
     }
+
 
     $max = $min*10 - 1;
     $code = rand($min,$max);

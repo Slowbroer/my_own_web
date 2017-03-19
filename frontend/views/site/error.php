@@ -7,7 +7,7 @@
 
 use yii\helpers\Html;
 
-$this->title = $name;
+$this->title = Yii::t("common",'error');
 ?>
 <div class="site-error">
 
