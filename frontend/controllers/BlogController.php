@@ -29,7 +29,7 @@ class BlogController extends Controller {
 //        Yii::$app->response->format=Response::FORMAT_JSON;
 //        return ['blog'=>$blog];
 
-        $list = $blog->getList(Yii::$app->user->id);
+        $list = $blog->blogList(Yii::$app->user->id);
         $lists_length = count($list['lists']);
 
 
@@ -149,7 +149,7 @@ class BlogController extends Controller {
         $blog = new Blog();
         $user_id = Yii::$app->user->id;
 
-        $lists = $blog->getList($user_id);
+        $lists = $blog->blogList($user_id);
 
 
         echo $this->render("my_blog",['model'=>$lists['lists'],'pagination'=>$lists['page']]);

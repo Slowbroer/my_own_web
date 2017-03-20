@@ -77,7 +77,7 @@ class Blog extends \yii\db\ActiveRecord
         return $blog;
     }
 
-    public function getRecent($user_id)
+    public function blogRecent($user_id)
     {
 //        var_dump($user_id);
         return $this->find()->where(['user_id'=>$user_id])->orderBy("check_time desc")->asArray()->all();
@@ -96,9 +96,19 @@ class Blog extends \yii\db\ActiveRecord
 
     }
 
-    public function getList($user_id)
+    public function blogList($user_id,$catalog_id = null)
     {
-        $query = $this->find()->where(['user_id'=>$user_id])->asArray();
+//        if(empty($user_id))
+//        {
+//            return "请先登录";
+//        }
+        $where = array();
+        if($catalog_id !== null)
+        {
+            $where['cat_id'] = $catalog_id;
+        }
+        $where['user_id'] = $user_id;
+        $query = $this->find()->where($where)->asArray();
         $count = $query->count();
         $page = new Pagination(['totalCount'=>$count,]);
         $list['lists'] = $query->offset($page->offset)

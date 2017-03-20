@@ -44,8 +44,8 @@ class Catalog extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'cat_name' => 'Cat Name',
-            'cat_brief' => 'Cat Brief',
+            'cat_name' => '目录名',
+            'cat_brief' => '目录简介',
             'user_id' => 'User ID',
             'ad_time' => 'Ad Time',
             'parent_id' => 'Parent ID',
@@ -93,5 +93,19 @@ class Catalog extends \yii\db\ActiveRecord
         {
             return null;
         }
+    }
+
+    public function catalog_lists($user_id,$catalog_id = 0){
+        if (empty($user_id))
+        {
+            return "请登录后在获取你的所有文件";
+        }
+        $where = array();
+
+        $where['parent_id'] = $catalog_id;
+        $where['user_id'] = $user_id;
+
+
+        return $this->find()->where($where)->orderBy("cat_name desc")->asArray()->all();
     }
 }

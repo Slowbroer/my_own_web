@@ -270,6 +270,7 @@ class SiteController extends Controller
 
     public function actionTest(){
         Yii::$app->security->generatePasswordHash("123456");
+        echo Yii::$app->user->id;
     }
 
 

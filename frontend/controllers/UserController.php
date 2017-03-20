@@ -80,7 +80,7 @@ class UserController extends Controller {
         }
         $blog = new Blog();
 //        $user_id = 2;
-        $list = $blog->getRecent($user_id);
+        $list = $blog->blogRecent($user_id);
 
 //        $list = "test";
         $content = $this->renderPartial('/blog/list',['lists'=>$list]);
