@@ -20,13 +20,17 @@ use yii\bootstrap\ActiveForm;
                 data:$(this).serialize(),
                 type:$(this).attr("method"),
                 success:function (data) {
+                    data = eval("("+data+")");
                     alert(data.message);
+                    $("#catalogModal").modal("hide");
                     if(data.code == 0)
                     {
                         location.reload();
                     }
                 }
-            })
+            });
+
+            return false;
         });
     });
     function catalog_add(catalog_id) {
@@ -43,8 +47,14 @@ use yii\bootstrap\ActiveForm;
                     data = eval("("+data+")");
                     $("#catalog-cat_name").val(data.cat_name);
                     $("#catalog-cat_brief").val(data.cat_brief);
-                    $("#catalog-parent_id").val(data.parent_id);
+//                    $("#catalog-parent_id").val(data.parent_id);
                     $("#catalog-id").val(data.id);
+                }
+                else
+                {
+                    $("#catalog-cat_name").val('');
+                    $("#catalog-cat_brief").val('');
+                    $("#catalog-id").val(0);
                 }
                 $("#catalogModal").modal("show");
             },
@@ -58,12 +68,18 @@ use yii\bootstrap\ActiveForm;
 
 </script>
 
+<div style="font-size: small;">
+    <a href="<?= \yii\helpers\Url::toRoute(['catalog/list','id'=>$parent_id])?>">返回上一夜</a>
+</div>
 
 <div class="panel panel-default" style="margin: 20px auto;width: 95%">
+
+
     <?php foreach($catalogs as $catalog){ ?>
         <div class="panel-heading">
             <a href="<?php echo \yii\helpers\Url::toRoute('catalog/list').'&id='.$catalog['id'] ?>"><?= $catalog['cat_name'] ?></a>
             <a style="float: right;padding-left: 10px" href="#" onclick="del_catalog(<?php echo $catalog['id'] ?>)">删除</a>
+            <a style="float: right;" href="#" onclick="catalog_add(<?= $catalog['id']?>);" >编辑</a>
         </div>
     <?php } ?>
 
@@ -77,7 +93,7 @@ use yii\bootstrap\ActiveForm;
 </div>
 
 <div style="margin: 10px auto">
-        <button type="button" class="btn btn-default" onclick="catalog_add(<?= $catalog_id?>);">新建目录</button>
+        <button type="button" class="btn btn-default" onclick="catalog_add(0);">新建目录</button>
 
 
     <a href="index.php?r=blog/add">
@@ -106,16 +122,18 @@ use yii\bootstrap\ActiveForm;
 
                 <?php echo $form->field($model,'cat_brief')->textInput(['placeholder'=>'请填写目录简介']);?>
 
-                <?php echo $form->field($model,'parent_id')->hiddenInput()->label(false);?>
+                <?php echo $form->field($model,'parent_id')->hiddenInput(['value'=>$catalog_id])->label(false);?>
 
                 <?php echo $form->field($model,'id')->hiddenInput()->label(false);?>
+
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-primary">保存</button>
 
                 <?php ActiveForm::end(); ?>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">保存</button>
+
             </div>
         </div>
     </div>

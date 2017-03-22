@@ -30,13 +30,15 @@ class CatalogController extends Controller {
     public function actionMainInfo()
     {
         $cat_id = isset($_GET['id'])? intval($_GET['id']):0;
+        $p_id = isset($_GET['p_id'])? intval($_GET['p_id']):0;
+
         if(!empty($cat_id))
         {
             $catalog = new Catalog();
-            $catalog->find()->where(['id'=>$cat_id])->asArray()->one();
-            if(empty($catalog))
+            $info = $catalog->find()->where(['id'=>$cat_id,'user_id'=>Yii::$app->user->id])->asArray()->one();
+            if(!empty($info))
             {
-                return json_encode($catalog);
+                return json_encode($info);
             }
             else{
                 return 'error';
@@ -48,26 +50,56 @@ class CatalogController extends Controller {
         }
     }
 
-    public function actionList()
+    public function actionList()//博客列表（目录＋博客）
     {
         $cat_id = isset($_GET['id'])?intval($_GET['id']):0;
 
         $catalog = new Catalog();
         $catalog_lists = $catalog->catalog_lists(Yii::$app->user->id,$cat_id);
-
+        $parent_id = $catalog->parent_id($cat_id);
         $blog = new Blog();
         $blog_lists = $blog->blogList(Yii::$app->user->id,$cat_id);
 
-        return $this->render("list",['catalogs'=>$catalog_lists,'blogs'=>$blog_lists['lists'],'catalog_id'=>$cat_id,'model'=>$catalog]);
+        return $this->render("list",[
+            'catalogs'=>$catalog_lists,
+            'blogs'=>$blog_lists['lists'],
+            'catalog_id'=>$cat_id,
+            'model'=>$catalog,
+            'parent_id'=>$parent_id
+        ]);
     }
 
     public function actionSave()
     {
-        $catalog = new Catalog();
-        if($catalog->load(Yii::$app->request->post()))
+        $post_data = Yii::$app->request->post("Catalog");
+        if(empty($post_data['id']))
         {
-
+            $catalog = new Catalog();
+            $catalog->ad_time = time();
         }
+        else
+        {
+            $catalog = Catalog::findOne(['id'=>$post_data['id'],'user_id'=>Yii::$app->user->id]);
+        }
+        if($catalog !== null)
+        {
+            if($catalog->load(Yii::$app->request->post()))
+            {
+                $catalog->user_id = Yii::$app->user->id;
+                $result = $catalog->save()? ['code'=>0,'message'=>'保存成功']:['code'=>1,'message'=>'保存失败'];
+            }
+            else
+            {
+                $result['code'] = 1;
+                $result['message'] = '提交数据有误，请重新提交！';
+            }
+        }
+        else
+        {
+            $result['code'] = 1;
+            $result['message'] = '没有找到目录，请重新刷新！';
+        }
+        return json_encode($result);
     }
 
 

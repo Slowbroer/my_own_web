@@ -108,4 +108,20 @@ class Catalog extends \yii\db\ActiveRecord
 
         return $this->find()->where($where)->orderBy("cat_name desc")->asArray()->all();
     }
+
+
+    public function parent_id($id,$user_id = 0)
+    {
+        if(empty($user_id))
+        {
+            $user_id = Yii::$app->user->id;
+        }
+        $parent_id = $this->find()->select("parent_id")->where(['id'=>$id,'user_id'=>$user_id])->asArray()->one();
+        if(isset($parent_id))
+        {
+            return 0;
+        }
+        return $parent_id['parent_id'];
+    }
+
 }

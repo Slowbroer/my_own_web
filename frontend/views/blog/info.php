@@ -19,10 +19,10 @@ use \yii\helpers\Html;
 </span>
 
 <div>
-    <p style="width: 49.5%;display: inline-block;text-align: left">
-        <a  href="<?= \yii\helpers\Url::toRoute(['blog/info','id'=>$last['id']]);?>">上一篇：<?php echo Html::encode($last['title'])?></a>
+    <p style="width: 49%;display: inline-block;text-align: left">
+        <a href="<?= \yii\helpers\Url::toRoute(['blog/info','id'=>$last['id']]);?>">上一篇：<?php echo Html::encode($last['title'])?></a>
     </p>
-    <p style="width: 49.5%;display: inline-block;text-align: right">
+    <p style="width: 49%;display: inline-block;text-align: right">
         <a  href="<?= \yii\helpers\Url::toRoute(['blog/info','id'=>$next['id']]);?>">下一篇：<?php echo Html::encode($next['title'])?></a>
     </p>
 </div>
