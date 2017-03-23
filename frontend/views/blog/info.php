@@ -11,18 +11,37 @@ use \yii\helpers\Html;
 
 ?>
 
+<style>
+    .blog_link {
+        width: 49%;
+        display: inline-block;
+        height: 20px;
+        overflow: hidden;
+    }
+
+    img {
+        max-width: 100%;
+    }
+    #common-button {
+        filter:alpha(opacity=60);
+        -moz-opacity:0.6;
+        -khtml-opacity: 0.6;
+        opacity: 0.6;
+    }
+
+</style>
 
 
 <span style="position: fixed;right: 20px;">
 <!--    <button type="button" class="btn btn-info" style="display: block" onclick="location.href='#edit-comment'">发表评价</button></br>-->
-    <button type="button" class="btn btn-info" style="display: block" onclick="location.href='#comment'">评价区</button>
+    <button id="common-button" type="button" class="btn btn-info" style="display: block" onclick="location.href='#comment'">评价区</button>
 </span>
 
 <div>
-    <p style="width: 49%;display: inline-block;text-align: left">
+    <p style="text-align: left" class="blog_link left">
         <a href="<?= \yii\helpers\Url::toRoute(['blog/info','id'=>$last['id']]);?>">上一篇：<?php echo Html::encode($last['title'])?></a>
     </p>
-    <p style="width: 49%;display: inline-block;text-align: right">
+    <p style="text-align: right" class="blog_link right">
         <a  href="<?= \yii\helpers\Url::toRoute(['blog/info','id'=>$next['id']]);?>">下一篇：<?php echo Html::encode($next['title'])?></a>
     </p>
 </div>
