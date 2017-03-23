@@ -74,7 +74,17 @@ AppAsset::register($this);
                 <div class='frosted-glass'>
                     <!--            <img src="@web/images/header.jpg">-->
                 </div>
-                <h2 class="weather">My AAC Station</h2>
+                <h2 class="weather">
+                    <?php
+                    if(Yii::$app->user->isGuest){
+                        echo "<a href='index.php?r=site/login'>Slowbro</a>";
+                    }
+                    else{
+                        echo Yii::$app->user->identity->username;
+                    }
+                    ?>
+
+                </h2>
                 <!--        <img class='weather' src='cloudy.png'>-->
             </div>
         </div>
