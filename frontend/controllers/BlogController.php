@@ -15,8 +15,26 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\filters\AccessControl;
 
 class BlogController extends Controller {
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ["*"],
+                'rules' => [
+                    [
+                        'actions' => [],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     public function actionInfo(){
         $blog_id = Yii::$app->request->get('id');
@@ -26,16 +44,13 @@ class BlogController extends Controller {
         }
         $blog = new Blog();
         $blog_info = $blog->info($blog_id);
-//        Yii::$app->response->format=Response::FORMAT_JSON;
-//        return ['blog'=>$blog];
 
         $list = $blog->blogList(Yii::$app->user->id);
         $lists_length = count($list['lists']);
 
-
         $next = array();
         $last = array();
-//        $lists = ArrayHelper::map($lists,'id','title');
+
         $lists = $list['lists'];
         foreach($lists as $key => $value)
         {

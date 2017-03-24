@@ -14,8 +14,26 @@ use frontend\models\CapCode;
 use frontend\models\Catalog;
 use yii\web\Controller;
 use Yii;
+use yii\filters\AccessControl;
 
 class CatalogController extends Controller {
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ["*"],
+                'rules' => [
+                    [
+                        'actions' => [],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     public function actionInfo()
     {

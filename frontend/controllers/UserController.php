@@ -13,10 +13,28 @@ use frontend\models\Catalog;
 use common\models\User;
 use Yii;
 use yii\web\Controller;
+use yii\filters\AccessControl;
 
 class UserController extends Controller {
 
-    public $enableCsrfValidation = false;
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ["*"],
+                'rules' => [
+                    [
+                        'actions' => [],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+//    public $enableCsrfValidation = false;
 
     public function actionCenter(){
 //        var_dump(Yii::$app->user->identity->id);
