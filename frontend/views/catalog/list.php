@@ -96,7 +96,7 @@ use yii\bootstrap\ActiveForm;
         <button type="button" class="btn btn-default" onclick="catalog_add(0);">新建目录</button>
 
 
-    <a href="index.php?r=blog/add">
+    <a href="index.php?r=blog/add&cat_id=<?= $catalog_id;?>">
         <button type="button" class="btn btn-default">新建博客</button>
     </a>
 

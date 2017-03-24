@@ -16,6 +16,7 @@ use \yii\helpers\Html;
         'action'=>\yii\helpers\Url::toRoute('blog/save'),
     ]); ?>
     <?php echo $form->field($model,'title');?>
+    <?php echo $form->field($model,'brief')->textInput();?>
 
     <!--        这里的$model必须是一个model类的实例，attribute指的是这个model类的一个字段，这个字段用来保存数据-->
     <!--    --><?//= \yii\helpers\Markdown::process($model['content']) ?>
@@ -26,6 +27,7 @@ use \yii\helpers\Html;
     <?php echo Html::submitButton('提交', ['class' => 'btn btn-success']) ?>
 
     <!--</div>-->
+    <?php echo $form->field($model,'cat_id')->hiddenInput()->label(false);?>
     <?php echo $form->field($model,'id')->hiddenInput()->label(false);?>
     <?php ActiveForm::end(); ?>
 

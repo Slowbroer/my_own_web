@@ -49,13 +49,13 @@ class Blog extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
+            'title' => '标题',
             'user_id' => 'User ID',
-            'content' => 'Content',
+            'content' => '内容',
             'user_name' => 'User Name',
             'cat_id' => 'Cat ID',
-            'brief' => 'Brief',
-            'key_word' => 'Key Word',
+            'brief' => '简介',
+            'key_word' => '关键字',
             'check_time' => 'check_time',
         ];
     }

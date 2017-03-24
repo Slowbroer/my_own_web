@@ -100,6 +100,9 @@ class BlogController extends Controller {
 
 
         $blog->load(Yii::$app->request->post());//load函数是更新这个实例变量的数据
+        $blog->check_time = time();
+        $blog->key_word = '';
+
 //        Yii::$app->response->format=Response::FORMAT_JSON;
         if($blog->save())//这里的save是跳到BaseActiveRecord，但是BaseActiveRecord中save的update是跳到ActiveRecord那边
         {
@@ -154,6 +157,7 @@ class BlogController extends Controller {
     public function actionAdd()
     {
         $blog = new Blog();
+        $blog->cat_id = isset($_GET['cat_id'])? intval($_GET['cat_id']):0;
         echo $this->render("add",['model'=>$blog]);
     }
 
