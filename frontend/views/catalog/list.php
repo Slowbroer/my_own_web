@@ -64,6 +64,27 @@ use yii\bootstrap\ActiveForm;
         });
 
     }
+    function del_blog(id) {
+        if (confirm("确定要删除这条博客吗？"))
+        {
+            $.ajax({
+                url:"index.php?r=blog/del",
+                type:"post",
+                data:"id="+id,
+                success:function (data) {
+                    data = eval("("+data+")");
+                    alert(data.message);
+                    if(data.code == 0)
+                    {
+                        location.reload();
+                    }
+                },
+                error:function (data) {
+
+                }
+            });
+        }
+    }
 
 
 </script>

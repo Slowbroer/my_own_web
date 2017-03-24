@@ -35,7 +35,7 @@ class Blog extends \yii\db\ActiveRecord
     {
         return [
 //            [['title', 'user_id', 'content', 'cat_id', 'brief', 'key_word'], 'required'],
-            [['title', 'user_id', 'content'], 'required'],
+            [['title', 'user_id', ], 'required'],
             [['user_id', 'cat_id','check_time'], 'integer'],
             [['content', 'key_word'], 'string'],
             [['title', 'user_name', 'brief'], 'string', 'max' => 255],
@@ -86,7 +86,7 @@ class Blog extends \yii\db\ActiveRecord
     public function del($user_id,$blog_id)
     {
         $blog = $this->find()->where(['user_id'=>$user_id,'id'=>$blog_id])->one();
-        $blog->delete();
+        return $blog->delete();
     }
 
 

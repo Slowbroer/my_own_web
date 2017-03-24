@@ -125,13 +125,15 @@ class BlogController extends Controller {
         $result = array();
         if(empty($blog_id)||!is_numeric($blog_id))
         {
-            $result['code']=0;
+            $result['code']=1;
+            $result['message'] = '删除失败！';
             return json_encode($result);
         }
         else
         {
             $blog = new Blog();
-            $result = $blog->del(Yii::$app->user->id,$blog_id);
+            $result = $blog->del(Yii::$app->user->id,$blog_id)? ['code'=>0,'message'=>'删除成功']:['code'=>1,'message'=>'删除失败'];
+            return json_encode($result);
         }
     }
     public function actionEdit()
@@ -218,8 +220,6 @@ class BlogController extends Controller {
                 return json_encode(array('code'=>1,'content'=>'加载成功'));
 //                return json_encode($comment_lists);
             }
-
-
         }
     }
 
