@@ -19,7 +19,7 @@ use \yii\helpers\Html;
 
     <!--        这里的$model必须是一个model类的实例，attribute指的是这个model类的一个字段，这个字段用来保存数据-->
 <!--    --><?//= \yii\helpers\Markdown::process($model['content']) ?>
-    <?php echo Markdowneditor::widget(['model' => $model, 'attribute' => 'content']) ?>
+    <?php echo Markdowneditor::widget(['model' => $model, 'attribute' => 'content','options'=>'']) ?>
 
 
     <!--<div class="form-group">-->
