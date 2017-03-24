@@ -69,7 +69,7 @@ use yii\bootstrap\ActiveForm;
 </script>
 
 <div style="font-size: small;">
-    <a href="<?= \yii\helpers\Url::toRoute(['catalog/list','id'=>$parent_id])?>">返回上一夜</a>
+    <a href="<?= \yii\helpers\Url::toRoute(['catalog/list','id'=>$parent_id])?>">Last</a>
 </div>
 
 <div class="panel panel-default" style="margin: 20px auto;width: 95%">
