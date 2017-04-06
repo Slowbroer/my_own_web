@@ -52,8 +52,26 @@ use \yii\helpers\Html;
     <h2 style="text-align: center;padding-bottom: 20px;">
         <?php echo Html::encode($model['title'])?>
     </h2>
-<!--        这里的$model必须是一个model类的实例，attribute指的是这个model类的一个字段，这个字段用来保存数据-->
+    <div style="text-align: center">
+        <a href="#" onclick="collectBlog(<?php echo Html::encode($model['id'])?>);">
+            <span class="glyphicon glyphicon-heart"></span>
+            <span class="collect_span">
+                <?php
+                if($is_collect)
+                {
+                    echo " 已收藏";
+                }
+                else
+                {
+                    echo " 点击收藏";
+                }
+                ?>
+            </span>
+        </a>
+    </div>
+
 <?= \yii\helpers\Markdown::process($model['content']) ?>
+<!--        这里的$model必须是一个model类的实例，attribute指的是这个model类的一个字段，这个字段用来保存数据-->
 <?php //echo Markdowneditor::widget(['model' => $model, 'attribute' => 'content']) ?>
 <?php //$form->field($model,'title');?>
 
@@ -117,6 +135,25 @@ use \yii\helpers\Html;
                 }
             }
         })
+    }
+    function collectBlog(id) {
+        $.ajax({
+            url:"index.php?r=blog/do-colllect&id="+id,
+            success:function (data) {
+                if(data == 2)
+                {
+                    location.href = 'index.php?r=site/login';
+                }
+                else if(data ==1)
+                {
+
+                }
+
+            },
+            error:function () {
+
+            }
+        });
     }
 
 </script>

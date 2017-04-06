@@ -9,6 +9,7 @@
 namespace frontend\controllers;
 
 use frontend\models\Blog;
+use frontend\models\Collect;
 use frontend\models\Comment;
 use frontend\models\CommentForm;
 use Yii;
@@ -44,6 +45,9 @@ class BlogController extends Controller {
         }
         $blog = new Blog();
         $blog_info = $blog->info($blog_id);
+
+        $collect = new Collect();
+        $is_collect = $collect->is_collected($blog_id);
 
         $list = $blog->blogList(Yii::$app->user->id);
         $lists_length = count($list['lists']);
@@ -82,7 +86,14 @@ class BlogController extends Controller {
         $comment_lists = $comment->comment_list($blog_id);
 
 
-        return $this->render('info',['model'=>$blog_info,'next'=>$next,'last'=>$last,'comment_form'=>$comment_form,'comment_lists'=>$comment_lists]);
+        return $this->render('info',[
+            'model'=>$blog_info,
+            'next'=>$next,
+            'last'=>$last,
+            'comment_form'=>$comment_form,
+            'comment_lists'=>$comment_lists,
+            'is_collect'=>$is_collect,
+        ]);
     }
     public function actionSave(){
         $data = Yii::$app->request->post('Blog');
@@ -220,6 +231,13 @@ class BlogController extends Controller {
                 return json_encode(array('code'=>1,'content'=>'加载成功'));
 //                return json_encode($comment_lists);
             }
+        }
+    }
+    public function actionDoCollect()
+    {
+        if(Yii::$app->user->isGuest)
+        {
+            return 2;
         }
     }
 

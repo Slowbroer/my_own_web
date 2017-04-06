@@ -117,7 +117,7 @@ class Catalog extends \yii\db\ActiveRecord
             $user_id = Yii::$app->user->id;
         }
         $parent_id = $this->find()->select("parent_id")->where(['id'=>$id,'user_id'=>$user_id])->asArray()->one();
-        if(isset($parent_id))
+        if(!isset($parent_id))
         {
             return 0;
         }

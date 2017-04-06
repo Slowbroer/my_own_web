@@ -74,6 +74,7 @@ class CatalogController extends Controller {
 
         $catalog = new Catalog();
         $catalog_lists = $catalog->catalog_lists(Yii::$app->user->id,$cat_id);
+
         $parent_id = $catalog->parent_id($cat_id);
         $blog = new Blog();
         $blog_lists = $blog->blogList(Yii::$app->user->id,$cat_id);
@@ -118,6 +119,11 @@ class CatalogController extends Controller {
             $result['message'] = '没有找到目录，请重新刷新！';
         }
         return json_encode($result);
+    }
+
+
+    public function actionTest(){
+
     }
 
 
