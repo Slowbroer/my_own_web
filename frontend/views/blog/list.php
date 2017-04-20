@@ -24,9 +24,9 @@ use \yii\bootstrap\Html;
 <!--    --><?php //} ?>
 <!--</div>-->
 
-<div class="panel panel-success" style="margin: 20px auto;width: 95%">
+<div class="panel panel-default" style="margin: 20px auto;width: 95%">
   <?php foreach($lists as $list){ ?>
-    <div class="panel-heading">
+    <div class="panel-body">
         <a href="<?php echo \yii\helpers\Url::toRoute('blog/info').'&id='.$list['id'] ?>"><?= $list['title'] ?></a>
         <a style="float: right;padding-left: 10px" href="#" onclick="del_blog(<?php echo $list['id'] ?>)">删除</a>
         <a style="float: right;" href="<?php echo \yii\helpers\Url::toRoute('blog/edit').'&id='.$list['id'] ?>">编辑</a>
