@@ -399,7 +399,7 @@ $this->title = 'Slowbro';
         </article>
     </section>
 </div>
-<button class="agian-button">Again</button>
+<button class="agian-button">再来</button>
 <script>
     var sections = document.querySelectorAll('section');
 
