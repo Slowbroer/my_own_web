@@ -27,6 +27,9 @@ $this->title = 'Slowbro';
 </div>
 
 <style>
+    body {
+        overflow: hidden;
+    }
     mark {
         background-color: #FFFF00;
         border: 1px dashed #FFFF00;
@@ -63,7 +66,7 @@ $this->title = 'Slowbro';
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        position: fixed;
+        position: absolute;
         top: 50%;
         left: 50%;
         -webkit-transform: translate(-50%, -50%);
