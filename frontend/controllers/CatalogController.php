@@ -121,6 +121,56 @@ class CatalogController extends Controller {
         return json_encode($result);
     }
 
+    public function actionDropCatalog()
+    {
+        $target_id = Yii::$app->request->post("target_id");
+        $from_id = Yii::$app->request->post("from_id");
+
+        $target = explode("-",$target_id);
+        $from = explode("-",$from_id);
+
+        if(is_null($target['1'])||is_null($from['1'])||$target['0']!='catalog')
+        {
+            return json_encode(array('code'=>0));
+        }
+        else
+        {
+            if($from['0']=='catalog')
+            {
+                $catalog=Catalog::findOne(['id'=>$from['1']]);
+                $catalog->parent_id = $target['1'];
+                if($catalog->save())//save success
+                {
+                    return json_encode(array('code'=>1));
+                }
+                else//save error
+                {
+                    return json_encode(array('code'=>0));
+                }
+            }
+            elseif ($from['0']=='blog')
+            {
+                $blog = Blog::findOne(['id'=>$from['1']]);
+                $blog->cat_id = $target['1'];
+                if($blog->save())//save success
+                {
+                    return json_encode(array('code'=>1));
+                }
+                else//save error
+                {
+                    return json_encode(array('code'=>0));
+                }
+            }
+            else
+            {
+                json_encode(array('code'=>0));
+            }
+
+        }
+
+    }
+
+
 
     public function actionTest(){
 

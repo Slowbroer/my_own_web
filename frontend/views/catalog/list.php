@@ -11,6 +11,31 @@ use yii\bootstrap\ActiveForm;
 ?>
 
 
+<style>
+    /*.panel-name {*/
+        /*display: inline-block;*/
+        /*width: 20%;*/
+        /*text-overflow: ellipsis;*/
+        /*-o-text-overflow: ellipsis;*/
+        /*white-space: nowrap;*/
+        /*display: inline-block;*/
+    /*}*/
+
+/*.brief-span {*/
+    /*margin-left: 20px;*/
+    /*width: 60%;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*-o-text-overflow: ellipsis;*/
+    /*white-space: nowrap;*/
+    /*display: inline-block;*/
+    /*!*vertical-align:top;*!*/
+    /*color: grey;*/
+
+/*}*/
+
+</style>
+
 <script>
 
     $(function () {
@@ -85,28 +110,60 @@ use yii\bootstrap\ActiveForm;
             });
         }
     }
+    function drag(ev) {
+        ev.dataTransfer.setData("id",ev.target.id);
+    }
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+    function drop(ev) {
+        ev.preventDefault();
+        var from_id = ev.dataTransfer.getData("id");
+        var target_id = ev.target.id;
+        $.ajax({
+            url:"index.php?r=catalog/drop-catalog",
+            data:"from_id="+from_id+"&target_id="+target_id,
+            type:"post",
+            success:function (data) {
+                data = eval("("+data+")");
+                if(data.code == "1")
+                {
+                    $("#"+from_id).remove();
+                }
+                else
+                {
+//                    alert("出错了，请刷新!");
+                }
+            },
+            error:function () {
+                alert("出错了，请刷新!");
+            }
+        })
+    }
 
 
 </script>
 
-<div style="font-size: small;">
+<div style="font-size: small;" id="<?= "catalog-".$parent_id;?>"  ondrop="drop(event)" ondragover="allowDrop(event)">
     <a href="<?= \yii\helpers\Url::toRoute(['catalog/list','id'=>$parent_id])?>">Last</a>
 </div>
 
-<div class="panel panel-default" style="margin: 20px auto;width: 95%">
+<div class="panel panel-warning" style="margin: 20px auto;width: 95%">
 
 
     <?php foreach($catalogs as $catalog){ ?>
-        <div class="panel-heading">
-            <a href="<?php echo \yii\helpers\Url::toRoute('catalog/list').'&id='.$catalog['id'] ?>"><?= $catalog['cat_name'] ?></a>
-            <a style="float: right;padding-left: 10px" href="#" onclick="del_catalog(<?php echo $catalog['id'] ?>)">删除</a>
+        <div class="panel-heading" draggable="true" id="<?= "catalog-".$catalog['id'];?>" ondragstart="drag(event)" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <a class="panel-name" href="<?php echo \yii\helpers\Url::toRoute('catalog/list').'&id='.$catalog['id'] ?>"><?= $catalog['cat_name'] ?></a>
+<!--            <span class="brief-span" >--><?//= $catalog['cat_brief'];?><!--</span>-->
+            <a style="float: right;padding-left: 10px" href="#" onclick="del_catalog(<?php echo $catalog['id']; ?>)">删除</a>
             <a style="float: right;" href="#" onclick="catalog_add(<?= $catalog['id']?>);" >编辑</a>
         </div>
     <?php } ?>
 
     <?php foreach($blogs as $blog){ ?>
-        <div class="panel-body">
-            <a href="<?php echo \yii\helpers\Url::toRoute('blog/info').'&id='.$blog['id'] ?>"><?= $blog['title'] ?></a>
+        <div class="panel-body" draggable="true" id="<?= "blog-".$blog['id']; ?>" ondragstart="drag(event)">
+            <a class="panel-name" href="<?php echo \yii\helpers\Url::toRoute('blog/info').'&id='.$blog['id'] ?>"><?= $blog['title'] ?></a>
+<!--            <span class="brief-span" >--><?//= $blog['brief'];?><!--</span>-->
             <a style="float: right;padding-left: 10px" href="#" onclick="del_blog(<?php echo $blog['id'] ?>)">删除</a>
             <a style="float: right;" href="<?php echo \yii\helpers\Url::toRoute('blog/edit').'&id='.$blog['id'] ?>">编辑</a>
         </div>
