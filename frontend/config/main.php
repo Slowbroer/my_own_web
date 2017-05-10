@@ -69,5 +69,5 @@ return [
     ],
     'params' => $params,
     'language' => 'zh-CN',//TODO::这是设置系统语言的
-    'name'=>'Slowbro 的博客网站',
+    'name'=>'Slowbro',
 ];

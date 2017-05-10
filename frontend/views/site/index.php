@@ -61,7 +61,7 @@ $this->title = 'Slowbro';
         color: white;
         padding: 1.25em 2em;
         letter-spacing: 1px;
-        text-transform: uppercase;
+        /*text-transform: uppercase;*/
         cursor: pointer;
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -399,7 +399,7 @@ $this->title = 'Slowbro';
         </article>
     </section>
 </div>
-<button class="agian-button">再来</button>
+<button class="agian-button">Again</button>
 <script>
     var sections = document.querySelectorAll('section');
 
