@@ -74,6 +74,14 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
+<div class="modal fade" id="loadingModal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <p>loading...</p>
+        </div>
+    </div>
+
+</div>
 
 <!--<footer class="footer">-->
 <!--    <div class="container">-->

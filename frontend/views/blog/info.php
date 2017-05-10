@@ -53,7 +53,7 @@ use \yii\helpers\Html;
         <?php echo Html::encode($model['title'])?>
     </h2>
     <div style="text-align: center">
-        <a href="#" onclick="collectBlog(<?php echo Html::encode($model['id'])?>);">
+        <a href="javascript:return false;" onclick="collectBlog(<?php echo Html::encode($model['id'])?>);">
             <span class="glyphicon glyphicon-heart"></span>
             <span class="collect_span">
                 <?php
@@ -137,16 +137,30 @@ use \yii\helpers\Html;
         })
     }
     function collectBlog(id) {
+        $("#loadingModal").modal("show");
         $.ajax({
-            url:"index.php?r=blog/do-colllect&id="+id,
+            url:"index.php?r=blog/do-collect&id="+id,
             success:function (data) {
+                $("#loadingModal").modal("hide");
                 if(data == 2)
                 {
                     location.href = 'index.php?r=site/login';
                 }
-                else if(data ==1)
+                else if(data=="collect")
                 {
-
+                    $(".collect_span").text("已收藏");
+                }
+                else if(data=="cancel")
+                {
+                    $(".collect_span").text("点击收藏");
+                }
+                else if(data=="fail")
+                {
+                    alert("操作失败，请重新刷新页面！")
+                }
+                else
+                {
+                    alert("error");
                 }
 
             },

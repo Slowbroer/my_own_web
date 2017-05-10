@@ -46,8 +46,9 @@ class BlogController extends Controller {
         $blog = new Blog();
         $blog_info = $blog->info($blog_id);
 
-        $collect = new Collect();
-        $is_collect = $collect->is_collected($blog_id);
+        $collect = Collect::findOne(['type_value'=>$blog_id,'user_id'=>Yii::$app->user->id]);
+
+        $is_collect = isset($collect->value)? $collect->value:0;
 
         $list = $blog->blogList(Yii::$app->user->id);
         $lists_length = count($list['lists']);
@@ -238,6 +239,23 @@ class BlogController extends Controller {
         if(Yii::$app->user->isGuest)
         {
             return 2;
+        }
+
+        $blog_id = Yii::$app->request->get("id");
+        $collect = Collect::findOne(['type_value'=>$blog_id,'user_id'=>Yii::$app->user->id]);
+        if(empty($collect))
+        {
+            $collect = new Collect();
+            $collect->user_id = Yii::$app->user->id;
+            $collect->type_value = $blog_id;
+            $collect->value = 1;
+            $collect->add_time = time();
+            $collect->user_name = Yii::$app->user->identity->username;
+            return $collect->save()? "collect":"fail";
+        }
+        else
+        {
+            return $collect->act_collect();
         }
     }
 

@@ -13,6 +13,7 @@ use Yii;
  * @property integer $add_time
  * @property integer $user_id
  * @property string $user_name
+ * @property integer $type_value
  */
 class Collect extends \yii\db\ActiveRecord
 {
@@ -30,7 +31,7 @@ class Collect extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'value', 'add_time', 'user_id'], 'integer'],
+            [['type', 'value', 'add_time', 'user_id','type_value'], 'integer'],
             [['value', 'user_id'], 'required'],
             [['user_name'], 'string', 'max' => 255],
         ];
@@ -51,13 +52,30 @@ class Collect extends \yii\db\ActiveRecord
         ];
     }
 
-    public function is_collected($blog_id,$type = 1)
+//    public function is_collected($blog_id,$type = 1)
+//    {
+//        if(Yii::$app->user->isGuest)
+//        {
+//            return false;
+//        }
+//        $result = $this->find()->where(['value'=>$blog_id,'type'=>$type,'user_id'=>Yii::$app->user->identity->getId()])->one();
+//        return $result->value==1? false:true;
+//    }
+
+    public function act_collect()
     {
-        if(Yii::$app->user->isGuest)
+        $this->value = 1-$this->value;
+        $this->add_time = time();
+        if($this->save())
         {
-            return false;
+            return $this->value==1? "collect":"cancel";
         }
-        $result = $this->find()->where(['value'=>$blog_id,'type'=>$type,'user_id'=>Yii::$app->user->identity->getId()])->one();
-        return empty($result)? false:true;
+        else
+        {
+            return "fail";
+        }
+
     }
+
+
 }
