@@ -11,6 +11,7 @@ header("Access-Control-Allow-Origin:* ");
 use frontend\models\Blog;
 use frontend\models\Catalog;
 use common\models\User;
+use frontend\models\Collect;
 use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
@@ -119,10 +120,25 @@ class UserController extends Controller {
 
     }
 
+    public function actionRecentCollect()
+    {
+        if(Yii::$app->user->isGuest)
+        {
+
+        }
+        else
+        {
+            $query = Collect::find();
+            $query->joinWith(["blog"]);//这里的参数是一个数组，这里的joinWith会进行判断是否有对应的get函数，如果有的话就会进行调用
+            $query->select("blog.id,blog.title,collect.type_value");//这里就是一定要关联的那两个blog.id,collect.type_value
+            $query->where('collect.user_id='.Yii::$app->user->id);
+            $collect = $query->asArray()->all();
+            return $this->renderPartial("/collect/recent_collect",['lists'=>$collect]);
+        }
+    }
+
     public function actionTest(){
         $id=$_POST['id'];
     }
-
-
 
 }

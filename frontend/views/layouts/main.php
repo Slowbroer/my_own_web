@@ -23,6 +23,7 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <link rel="shortcut icon" href="<?= \yii\helpers\Url::to('@web/images/Slowbro.ico')?>" type="image/x-icon" >
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <?php $this->head() ?>
 </head>
 <body>
