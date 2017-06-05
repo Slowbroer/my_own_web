@@ -59,6 +59,9 @@ MarkdowneditorAssets::register($this);
         filter: blur(5px);
         filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=4, MakeShadow=false);
     }
+    .userImg {
+        border-radius: 15px;
+    }
 </style>
 
     <?php
@@ -90,14 +93,28 @@ MarkdowneditorAssets::register($this);
     ?>
 
 
+<script>
+    function headimgUpload(imgEle) {
+        return $("#img-file").click();
+    }
+    $(function () {
+        $("#img-file").on("change",function () {
+            $("#loadingModal").modal("show");
+            $(".userImg").attr("src",$(this).val());
+        });
+    });
 
+</script>
 
 <div class="userInfo">
 
     <div class="user_img">
-<!--        <img src="../web/images/user/user.jpg" class="userImg">-->
-<!--        <img src="--><?php //echo Url::toRoute("@web/images/user/user.jpg") ?><!--" class="userImg">--><!--这里的toRoute是会经过index.php这个入口文件的-->
-            <img src="<?php echo Url::to("@web/images/user/user.jpg") ?>" class="userImg"><!--而to只会接地址-->
+        <form id="headImg" action="index.php?r=user/update-head" method="post">
+            <!--        <img src="../web/images/user/user.jpg" class="userImg">-->
+            <!--        <img src="--><?php //echo Url::toRoute("@web/images/user/user.jpg") ?><!--" class="userImg">--><!--这里的toRoute是会经过index.php这个入口文件的-->
+            <img src="<?php echo Url::to("@web/images/user/user.jpg") ?>" class="userImg" onclick="headimgUpload(this);"><!--而to只会接地址-->
+            <input type="file" id="img-file" style="display: none" accept="image/png,image/gif"/>
+        </form>
     </div>
     <?php
 
