@@ -85,7 +85,8 @@ class AlbumController extends Controller
                     }
                 }
             }
-//            var_dump($model->attributes);
+            $model->add_time = $model->update_time = time();
+            $model->publish_time = strtotime($model->publish_time);
 
             if($model->save())
             {

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Markdown;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Album */
@@ -30,7 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'title',
-            'content:ntext',
+//            'content:ntext',
+//            [
+//                'label' => 'content',
+//                'style' => 'width:100px;',
+//                'value' => Markdown::process($model->content),//TODO::注意这里的格式，见http://www.yiichina.com/tutorial/616
+//            ],
             'img',
             'type',
             'link',
@@ -41,5 +47,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'update_time:datetime',
         ],
     ]) ?>
+
+
+    <?= Markdown::process($model->content);?>
 
 </div>

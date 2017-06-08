@@ -81,17 +81,6 @@ use kartik\date\DatePicker;
     ]]); ?>
     </div>
 
-    <div class="date-picker">
-    <?= $form->field($model, 'add_time')->widget(DatePicker::className(),['options'=>[
-        'class'=>'date-picker'
-    ]]) ?>
-    </div>
-
-    <div class="date-picker">
-    <?= $form->field($model, 'update_time')->widget(DatePicker::className(),['options'=>[
-        'class'=>'date-picker'
-    ]]) ?>
-    </div>
 
     <div>
 
