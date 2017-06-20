@@ -113,7 +113,7 @@ $this->title = 'Slowbro';
 
 <div class="index-content" style="margin: 0 auto">
     <div class="page-header">
-        <h3>耳机</h3>
+        <h3>今日推荐</h3>
     </div>
     <div class="img-floor">
         <a><span ><<</span></a>
@@ -124,7 +124,29 @@ $this->title = 'Slowbro';
     </div>
 
     <div class="page-header">
-        <h3>音响</h3>
+        <h3>POP</h3>
+    </div>
+    <div class="img-floor">
+        <a><span ><<</span></a>
+        <img class="index-img" src="<?= \yii\helpers\Url::to("@web/images/albums/born-to-die.jpg");?>">
+        <img class="index-img" src="<?= \yii\helpers\Url::to("@web/images/albums/born-to-die.jpg");?>">
+        <img class="index-img" src="<?= \yii\helpers\Url::to("@web/images/albums/born-to-die.jpg");?>">
+        <a><span >>></span></a>
+    </div>
+
+    <div class="page-header">
+        <h3>Rock and Roll</h3>
+    </div>
+    <div class="img-floor">
+        <a><span ><<</span></a>
+        <img class="index-img" src="<?= \yii\helpers\Url::to("@web/images/albums/born-to-die.jpg");?>">
+        <img class="index-img" src="<?= \yii\helpers\Url::to("@web/images/albums/born-to-die.jpg");?>">
+        <img class="index-img" src="<?= \yii\helpers\Url::to("@web/images/albums/born-to-die.jpg");?>">
+        <a><span >>></span></a>
+    </div>
+
+    <div class="page-header">
+        <h3>华语专辑</h3>
     </div>
     <div class="img-floor">
         <a><span ><<</span></a>

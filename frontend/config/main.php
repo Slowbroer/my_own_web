@@ -64,6 +64,13 @@ return [
                         'common' => 'common.php',
                     ],
                 ],
+                'album' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    //'basePath' => '/messages',
+                    'fileMap' => [
+                        'album' => 'album.php',
+                    ],
+                ],
             ],
         ],
     ],

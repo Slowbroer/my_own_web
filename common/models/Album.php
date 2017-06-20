@@ -50,7 +50,7 @@ class Album extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
+            'title' => Yii::t('album','Title'),
             'content' => 'Content',
             'img' => 'Img',
             'type' => 'Type',
