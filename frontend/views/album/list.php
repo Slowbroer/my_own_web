@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         margin-top: 10px;
         margin-bottom: 10px;
         transition: all 1s;
-        width: 170px;
+        width: 180px;
     }
 
 </style>
