@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Album;
-use common\models\AlbumSearch;
+use common\models\MusicType;
+use backend\models\MusicTypeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * AlbumController implements the CRUD actions for Album model.
+ * MusictypeController implements the CRUD actions for MusicType model.
  */
-class AlbumController extends Controller
+class MusictypeController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class AlbumController extends Controller
     }
 
     /**
-     * Lists all Album models.
+     * Lists all MusicType models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AlbumSearch();
+        $searchModel = new MusicTypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class AlbumController extends Controller
     }
 
     /**
-     * Displays a single Album model.
+     * Displays a single MusicType model.
      * @param integer $id
      * @return mixed
      */
@@ -57,47 +57,16 @@ class AlbumController extends Controller
     }
 
     /**
-     * Creates a new Album model.
+     * Creates a new MusicType model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Album();
+        $model = new MusicType();
 
-        if ($model->load(Yii::$app->request->post())) {
-            if(isset($_FILES['albumImg'])&& ($_FILES['albumImg']['type']=='image/gif'||$_FILES['albumImg']['type']=='image/jpeg'||$_FILES['albumImg']['type']=='image/png'||$_FILES['albumImg']['size'<200000]))
-            {
-                if($_FILES["albumImg"]["error"]>0)
-                {
-                    die("img-error");
-                }
-                else
-                {
-                    if(file_exists(Yii::getAlias("@frontend/web/images/albums/").$_FILES["albumImg"]['name']))
-                    {
-                        $model->img = "@frontend/web/images/albums/".$_FILES["albumImg"]['name'];
-                    }
-                    else
-                    {
-                        move_uploaded_file($_FILES["albumImg"]['tmp_name'],Yii::getAlias("@frontend/web/images/albums/").$_FILES["albumImg"]['name']);
-                        $model->img = time().$_FILES["albumImg"]['name'];
-                    }
-                }
-            }
-            $model->add_time = $model->update_time = time();
-            $model->publish_time = strtotime($model->publish_time);
-
-            if($model->save())
-            {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-            else
-            {
-                return $this->render('create', [
-                    'model' => $model,
-                ]);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -106,7 +75,7 @@ class AlbumController extends Controller
     }
 
     /**
-     * Updates an existing Album model.
+     * Updates an existing MusicType model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -125,7 +94,7 @@ class AlbumController extends Controller
     }
 
     /**
-     * Deletes an existing Album model.
+     * Deletes an existing MusicType model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -138,15 +107,15 @@ class AlbumController extends Controller
     }
 
     /**
-     * Finds the Album model based on its primary key value.
+     * Finds the MusicType model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Album the loaded model
+     * @return MusicType the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Album::findOne($id)) !== null) {
+        if (($model = MusicType::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
