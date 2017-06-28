@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         padding: 7px;
         transition: all 1s;
         width: 180px;/*这里的width包含padding和border的原因是因为设置了box-sizing*/
-        border: 1px solid black;
+        border: 1px solid whitesmoke;
         /*box-sizing: content-box;*/
     }
     .album img {
@@ -37,6 +37,15 @@ $this->params['breadcrumbs'][] = $this->title;
     .next {
         width: 180px;
         /*height: 180px;*/
+    }
+
+    .album-brief p {
+        font-family: serif;
+        font-size: smaller;
+    }
+    .album-brief p a {
+        margin-right: 7px;
+        text-decoration: underline;
     }
 
 </style>
@@ -59,12 +68,23 @@ $this->params['breadcrumbs'][] = $this->title;
     }
     else{
         foreach ($lists as $key=>$list)
-        {?>
+        {
+            $types = explode(',',$list['type']);
+            ?>
             <div class="album" id="first">
                 <img src="images/albums/<?= $list['img'];?>">
-                <p><?= $list['title'];?></p>
-                <p><?= $list['type'];?></p>
-                <p><?= $list['singer'];?></p>
+                <div style="display: none" class="album-brief">
+                    <p><?= $list['title'];?></p>
+                    <p>
+                        <?php
+                        foreach ($types as $key=>$type)
+                        {
+                            echo "<a href='' >".$type_lists[$type]."</a>";
+                        }
+                        ?>
+                    </p>
+                    <p><?= $list['singer'];?></p>
+                </div>
             </div>
 
 <!--            <div class="album next" id="next">-->
@@ -128,11 +148,18 @@ $this->params['breadcrumbs'][] = $this->title;
 //        $("#next").mouseout(function () {
 //            $("#next2").remove();
 //        });
+        $(".album img").mouseover(function () {
+            if($(this).parent().find(".album-brief").css('display')=='none')
+            {
+                $(".album-brief").hide(1000);
+                $(this).parent().find(".album-brief").show(1000);
+            }
+        });
 
     });
 
     $(window).on("resize",function () {
-        waterFall()
+        waterFall();
     })
 </script>
 

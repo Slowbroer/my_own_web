@@ -71,7 +71,8 @@ class AlbumController extends Controller
 //        die();
 
         if ($model->load(Yii::$app->request->post())) {
-            if(isset($_FILES['albumImg']) && ($_FILES['albumImg']['type']=='image/gif'||$_FILES['albumImg']['type']=='image/jpeg'||$_FILES['albumImg']['type']=='image/png')&&$_FILES['albumImg']['size']<200000)
+
+            if(isset($_FILES['albumImg']) && ($_FILES['albumImg']['type']=='image/gif'||$_FILES['albumImg']['type']=='image/jpeg'||$_FILES['albumImg']['type']=='image/png')&&$_FILES['albumImg']['size']<2000000)
             {
                 if($_FILES["albumImg"]["error"]>0)
                 {
@@ -81,7 +82,7 @@ class AlbumController extends Controller
                 {
                     if(file_exists(Yii::getAlias("@frontend/web/images/albums/").$_FILES["albumImg"]['name']))
                     {
-                        $model->img = "@frontend/web/images/albums/".$_FILES["albumImg"]['name'];
+                        $model->img = $_FILES["albumImg"]['name'];
                     }
                     else
                     {
@@ -89,6 +90,10 @@ class AlbumController extends Controller
                         $model->img = time().$_FILES["albumImg"]['name'];
                     }
                 }
+            }
+            else
+            {
+                die("图片规格有问题");
             }
             $model->add_time = $model->update_time = time();
             $model->publish_time = strtotime($model->publish_time);
@@ -124,9 +129,10 @@ class AlbumController extends Controller
         $model = $this->findModel($id);
         $types = MusicType::find()->where(['<>','type_name',''])->asArray()->all();//这里只是用来练习where的使用，这里其实可以到源码里面进行查看
 
+
         if ($model->load(Yii::$app->request->post())) {
 
-            if(isset($_FILES['albumImg']) && ($_FILES['albumImg']['type']=='image/gif'||$_FILES['albumImg']['type']=='image/jpeg'||$_FILES['albumImg']['type']=='image/png')&&$_FILES['albumImg']['size']<200000)
+            if(isset($_FILES['albumImg']) && ($_FILES['albumImg']['type']=='image/gif'||$_FILES['albumImg']['type']=='image/jpeg'||$_FILES['albumImg']['type']=='image/png')&&$_FILES['albumImg']['size']<2000000)
             {
                 if($_FILES["albumImg"]["error"]>0)
                 {
@@ -136,14 +142,18 @@ class AlbumController extends Controller
                 {
                     if(file_exists(Yii::getAlias("@frontend/web/images/albums/").$_FILES["albumImg"]['name']))
                     {
-                        $model->img = "@frontend/web/images/albums/".$_FILES["albumImg"]['name'];
+                        $model->img = $_FILES["albumImg"]['name'];
                     }
                     else
                     {
                         move_uploaded_file($_FILES["albumImg"]['tmp_name'],Yii::getAlias("@frontend/web/images/albums/").$_FILES["albumImg"]['name']);
-                        $model->img = time().$_FILES["albumImg"]['name'];
+                        $model->img = $_FILES["albumImg"]['name'];
                     }
                 }
+            }
+            else
+            {
+                die("图片规格有问题");
             }
 
 

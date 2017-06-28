@@ -10,6 +10,7 @@ namespace frontend\controllers;
 
 
 use common\models\Album;
+use common\models\MusicType;
 use frontend\models\AlbumSearch;
 use yii\data\Pagination;
 use yii\web\Controller;
@@ -51,20 +52,22 @@ class AlbumController extends Controller
     {
         $type_id = Yii::$app->request->get("id");
         $where = array();
-//        var_dump("test");
+
         if(!empty($type_id))
         {
             $where['type_id'] = $type_id;
         }
-//        $album = new Album();
+
         $query = Album::find()->where($where);
         $count = $query->count();
         $page = new Pagination(['totalCount'=>$count]);
 
+        $MusicType = new MusicType();
+        $type_array = $MusicType->type_array();
+
 
         $lists = $query->offset($page->offset)->limit($page->limit)->asArray()->all();
-//        var_dump($lists);
-        echo $this->render("list",['lists'=>$lists,'page'=>$page]);
+        echo $this->render("list",['lists'=>$lists,'page'=>$page,'type_lists'=>$type_array]);
 
     }
 

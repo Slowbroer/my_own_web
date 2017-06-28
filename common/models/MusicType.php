@@ -3,12 +3,13 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "music_type".
  *
  * @property integer $id
- * @property string $c
+ * @property string $type_name
  * @property integer $parent_id
  */
 class MusicType extends \yii\db\ActiveRecord
@@ -43,5 +44,14 @@ class MusicType extends \yii\db\ActiveRecord
             'type_name' => 'Type Name',
             'parent_id' => 'Parent ID',
         ];
+    }
+
+
+    public function type_array()
+    {
+        $array = $this->find()->select("type_name,id")->asArray()->all();
+
+        return ArrayHelper::map($array,'id','type_name');
+
     }
 }

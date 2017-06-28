@@ -40,7 +40,7 @@ class Album extends \yii\db\ActiveRecord
             [['publish_time', 'add_time', 'update_time'], 'safe'],
             [['score'], 'number'],
             [['title', 'img', 'link', 'singer',], 'string', 'max' => 255],
-            [['brief'],'string','max'=>20]
+            [['brief'],'string','max'=>255]
         ];
     }
 
