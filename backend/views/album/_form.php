@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use ijackua\lepture\Markdowneditor;
 use kartik\date\DatePicker;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Album */
@@ -86,15 +87,17 @@ use kartik\date\DatePicker;
 
     </div>
 
-    <?= $form->field($model, 'type',['options'=>['style'=>'display:inline-block;']])->dropDownList(['1'=>'摇滚','2'=>'pop'],['style'=>'width:250px;']) ?>
+    <?= $form->field($model,'type')->checkboxList(ArrayHelper::map($types,'id','type_name'));?>
+
+    <?php //echo $form->field($model, 'type',['options'=>['style'=>'display:inline-block;']])->dropDownList(ArrayHelper::map($types,'id','type_name'),['style'=>'width:250px;']) ?>
 
     <?= $form->field($model, 'singer',['options'=>['style'=>'display:inline-block;']])->textInput(['maxlength' => true,'style'=>'width:250px;']) ?>
 
     <?= $form->field($model, 'score',['options'=>['style'=>'display:inline-block;']])->textInput(['style'=>'width:250px;d']) ?>
 
-    <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'link')->textInput(['maxlength' => true]); ?>
 
-
+    <?= $form->field($model, 'brief')->textarea(); ?>
 
 
 

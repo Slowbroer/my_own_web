@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "music_type".
  *
  * @property integer $id
- * @property string $type_name
+ * @property string $c
  * @property integer $parent_id
  */
 class MusicType extends \yii\db\ActiveRecord
@@ -28,6 +28,7 @@ class MusicType extends \yii\db\ActiveRecord
     {
         return [
             [['parent_id'], 'integer'],
+            [['parent_id'],'default','value'=>0],
             [['type_name'], 'string', 'max' => 50],
         ];
     }

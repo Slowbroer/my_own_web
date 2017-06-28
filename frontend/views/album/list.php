@@ -67,9 +67,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <p><?= $list['singer'];?></p>
             </div>
 
-            <div class="album next" id="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-            </div>
+<!--            <div class="album next" id="next">-->
+<!--                <span class="glyphicon glyphicon-chevron-right"></span>-->
+<!--            </div>-->
 
             <?php
         }
@@ -122,12 +122,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     $(function () {
         waterFall();
-        $("#next").mouseover(function () {
-            $(this).append("<span id='next2'>下一页</span>");
-        });
-        $("#next").mouseout(function () {
-            $("#next2").remove();
-        });
+//        $("#next").mouseover(function () {
+//            $(this).append("<span id='next2'>下一页</span>");
+//        });
+//        $("#next").mouseout(function () {
+//            $("#next2").remove();
+//        });
 
     });
 

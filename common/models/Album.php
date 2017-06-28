@@ -36,10 +36,11 @@ class Album extends \yii\db\ActiveRecord
     {
         return [
             [['content', 'type', 'score'], 'required'],
-            [['content'], 'string'],
-            [['type', 'publish_time', 'add_time', 'update_time'], 'safe'],
+            [['content','brief','type'], 'string'],
+            [['publish_time', 'add_time', 'update_time'], 'safe'],
             [['score'], 'number'],
-            [['title', 'img', 'link', 'singer'], 'string', 'max' => 255],
+            [['title', 'img', 'link', 'singer',], 'string', 'max' => 255],
+            [['brief'],'string','max'=>20]
         ];
     }
 
@@ -50,7 +51,7 @@ class Album extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => Yii::t('album','Title'),
+            'title' => 'Title',
             'content' => 'Content',
             'img' => 'Img',
             'type' => 'Type',
@@ -60,6 +61,7 @@ class Album extends \yii\db\ActiveRecord
             'publish_time' => 'Publish Time',
             'add_time' => 'Add Time',
             'update_time' => 'Update Time',
+            'brief' => '简介',
         ];
     }
 }
