@@ -14,6 +14,7 @@ use Yii;
  * @property integer $type
  * @property string $link
  * @property string $singer
+ * @property integer $singer_id
  * @property double $score
  * @property integer $publish_time
  * @property integer $add_time
@@ -37,7 +38,7 @@ class Album extends \yii\db\ActiveRecord
         return [
             [['content', 'type', 'score'], 'required'],
             [['content','brief','type'], 'string'],
-            [['publish_time', 'add_time', 'update_time'], 'safe'],
+            [['publish_time', 'add_time', 'update_time','singer_id'], 'safe'],
             [['score'], 'number'],
             [['title', 'img', 'link', 'singer',], 'string', 'max' => 255],
             [['brief'],'string','max'=>255]
@@ -64,4 +65,15 @@ class Album extends \yii\db\ActiveRecord
             'brief' => '简介',
         ];
     }
+
+//    public function getSinger()
+//    {
+//        return $this->hasOne(Singer::className(),['id'=>'singer_id']);
+//    }
+
+    public function getAlbumSinger()//这是上面的优化，防止上面出现的将这个函数结果返回给album类的singer字段
+    {
+        return $this->hasOne(Singer::className(),['id'=>'singer_id']);
+    }
+
 }

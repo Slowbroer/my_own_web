@@ -55,7 +55,7 @@ class AlbumController extends Controller
 
         if(!empty($type_id))
         {
-            $where['type_id'] = $type_id;
+            $where = ['like','album.type',$type_id];//添加表名
         }
 
         $query = Album::find()->where($where);
@@ -66,7 +66,14 @@ class AlbumController extends Controller
         $type_array = $MusicType->type_array();
 
 
-        $lists = $query->offset($page->offset)->limit($page->limit)->asArray()->all();
+//        $lists = $query->select("album.*,singer.singer_name")->joinWith(['singer'])->offset($page->offset)->limit($page->limit)->asArray()->all();
+        //这里的joinwith如果写成singer，并且改变ablum类的对应方法的话，就会出现获取歌手的album表的singer字段问题
+//        var_dump($lists[0]);
+//        die();
+//        array(14) { ["id"]=> string(1) "2" ["title"]=> string(11) "Born to Die" ["brief"]=> string(78) "Lana Del Rey的第一张录音室专辑，整体风格较为黑暗冷寂……" ["content"]=> string(408) "##Born to Die 《Born to Die》是由美国女歌手拉娜·德雷演唱的一首流行歌曲，歌词、曲谱由Elizabeth Grant和贾斯汀·帕克共同编写，音乐制作由Emile Haynie负责。该歌曲被收录在拉娜·德雷的第二张录音室专辑《Born to Die》中，并作为推广专辑的第二支单曲，于2011年12月30日通过新视野唱片公司和宝丽多唱片公司发行。" ["img"]=> string(15) "born-to-die.jpg" ["type"]=> string(3) "1,2" ["link"]=> string(0) "" ["singer"]=> array(6) { ["id"]=> string(1) "1" ["singer_name"]=> string(12) "Lana Del Rey" ["brief"]=> NULL ["content"]=> NULL ["sex"]=> string(1) "1" ["birthday"]=> NULL } ["singer_id"]=> string(1) "1" ["score"]=> string(2) "88" ["publish_time"]=> string(10) "1307404800" ["add_time"]=> string(10) "1496816831" ["update_time"]=> string(10) "1498639751" ["singer_name"]=> string(12) "Lana Del Rey" }
+
+        $lists = $query->select("album.*,singer.singer_name")->joinWith(['albumSinger'])->offset($page->offset)->limit($page->limit)->asArray()->all();
+
         echo $this->render("list",['lists'=>$lists,'page'=>$page,'type_lists'=>$type_array]);
 
     }

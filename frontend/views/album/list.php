@@ -10,7 +10,17 @@ use yii\widgets\LinkPager;
 
 
 $this->title = Yii::t("album",'Album List');
-$this->params['breadcrumbs'][] = $this->title;
+if(empty($_GET['id']))
+{
+    $this->params['breadcrumbs'][] = $this->title;
+}
+else
+{
+    $this->params['breadcrumbs'][] = array('label'=>$this->title,'url'=>'index.php?r=album/list');
+    $this->params['breadcrumbs'][] = $type_lists[$_GET['id']];
+}
+
+
 ?>
 
 <style>
@@ -72,18 +82,19 @@ $this->params['breadcrumbs'][] = $this->title;
             $types = explode(',',$list['type']);
             ?>
             <div class="album" id="first">
-                <img src="images/albums/<?= $list['img'];?>">
+                <img title="<?= $list['brief'];?>" src="images/albums/<?= $list['img'];?>">
                 <div style="display: none" class="album-brief">
-                    <p><?= $list['title'];?></p>
+                    <p><a href="index.php?r=album/info&id=<?= $list['id'];?>"><?= $list['title'];?></a></p>
+                    <p><a href="index.php?r=singer/info&id=<?= $list['singer_id'];?>"><?= $list['singer_name'];?></a></p>
                     <p>
                         <?php
                         foreach ($types as $key=>$type)
                         {
-                            echo "<a href='' >".$type_lists[$type]."</a>";
+                            echo "<a href='index.php?r=album/list&id=$type' >".$type_lists[$type]."</a>";
                         }
                         ?>
                     </p>
-                    <p><?= $list['singer'];?></p>
+                    <p ><?= $list['brief'];?></p>
                 </div>
             </div>
 
@@ -152,7 +163,7 @@ $this->params['breadcrumbs'][] = $this->title;
             if($(this).parent().find(".album-brief").css('display')=='none')
             {
                 $(".album-brief").hide(1000);
-                $(this).parent().find(".album-brief").show(1000);
+                $(this).parent().find(".album-brief").show(700);
             }
         });
 
