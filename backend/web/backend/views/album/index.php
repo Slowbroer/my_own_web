@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\models\SingerSearch */
+/* @var $searchModel common\models\AlbumSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Singers';
+$this->title = 'Albums';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="singer-index">
+<div class="album-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Singer', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Album', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -25,17 +25,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'singer_name',
-            'brief',
-            'content',
-            [
-                'label'=>'sex',
-                'value'=>function($model){
-//                    var_dump($model);
-                    return $model->sex == 1? 'male':'female';
-                }
-            ],
-            // 'birthday',
+            'title',
+            'content:ntext',
+            'img',
+            'type',
+            // 'link',
+            // 'singer',
+            // 'score',
+            // 'publish_time:datetime',
+            // 'add_time:datetime',
+            // 'update_time:datetime',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

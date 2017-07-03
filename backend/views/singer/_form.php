@@ -16,11 +16,22 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'brief')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'content')->textInput() ?>
+
 
     <?= $form->field($model, 'sex')->dropDownList(['1'=>'male','2'=>'female']) ?>
 
-    <?= $form->field($model, 'birthday')->textInput() ?>
+    <div class="form-group">
+        <label class="control-label">Birthday</label>
+        <?= \kartik\date\DatePicker::widget(['model'=>$model,'attribute'=>'birthday']) ?>
+    </div>
+
+
+    <div class="form-group">
+        <label class="control-label">Content</label>
+        <?= \ijackua\lepture\Markdowneditor::widget(['model'=>$model,'attribute'=>'content']); ?>
+    </div>
+
+
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
