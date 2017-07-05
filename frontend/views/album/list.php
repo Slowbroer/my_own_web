@@ -35,9 +35,20 @@ else
         margin-bottom: 20px;
         padding: 7px;
         transition: all 1s;
-        width: 180px;/*这里的width包含padding和border的原因是因为设置了box-sizing*/
+        /*width: 180px;*/
+        /*这里的width包含padding和border的原因是因为设置了box-sizing*/
         border: 1px solid whitesmoke;
         /*box-sizing: content-box;*/
+    }
+    @media screen and  (max-width: 360px) {
+        .album {
+            width: 180px;
+        }
+    }
+    @media screen and (min-width: 360px){
+        .album {
+            width: 180px;
+        }
     }
     .album img {
         width: 100%;
@@ -122,9 +133,10 @@ else
             allHeight.push(0)
         }
         var marginBoth = ($("#album-content").width()%$(".album").outerWidth())/(widthNum*2);
-        console.log($("#album-content").width());
-        console.log($(".album").outerWidth());
-        console.log(widthNum);
+//        console.log($("#album-content").width());
+
+        console.log($(".album").outerHeight(true));
+//        console.log(widthNum);
 
         $(".album").each(function () {
             var $cur=$(this),
@@ -147,6 +159,7 @@ else
                 "top":minAllHeight
             });
             allHeight[indx]=minAllHeight+$cur.outerHeight(true);
+//            console.log($cur.outerHeight(true));
         })
 
     }
@@ -163,7 +176,10 @@ else
             if($(this).parent().find(".album-brief").css('display')=='none')
             {
                 $(".album-brief").hide(1000);
-                $(this).parent().find(".album-brief").show(700);
+                $(this).parent().find(".album-brief").show(1000);
+
+
+//                waterFall();
             }
         });
 

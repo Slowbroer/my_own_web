@@ -12,6 +12,7 @@ namespace frontend\controllers;
 use common\models\Album;
 use common\models\MusicType;
 use frontend\models\AlbumSearch;
+use frontend\models\LinkForm;
 use yii\data\Pagination;
 use yii\web\Controller;
 use Yii;
@@ -28,12 +29,14 @@ class AlbumController extends Controller
         {
             $album = Album::findOne(['id'=>$id]);
             $form = new AlbumSearch();
-            echo $this->render('info',['model'=>$album,'form'=>$form]);
+            $linkModel = new LinkForm();
+            $linkModel->album_id = $id;
+            echo $this->render('info',['model'=>$album,'form'=>$form,'linkModel'=>$linkModel]);
 
         }
         else
         {
-            echo $this->render("/site/error",['message'=>'没有找到专辑页面']);
+            echo $this->render("/site/error",['message'=>'没有找到相应的专辑']);
         }
     }
 
@@ -76,6 +79,25 @@ class AlbumController extends Controller
 
         echo $this->render("list",['lists'=>$lists,'page'=>$page,'type_lists'=>$type_array]);
 
+    }
+
+    public function actionDownloadLink()
+    {
+        $form = new LinkForm();
+        if($form->load(Yii::$app->request->post()) && $form->validate())
+        {
+            $info = Album::findOne(['id'=>$form->album_id]);
+            $link = $info->link;
+            if(empty($link))
+            {
+                return json_encode(['code'=>2]);
+            }
+            else
+            {
+                return json_encode(['code'=>1,'link'=>$link]);
+            }
+        }
+        return json_encode(['code'=>0]);
     }
 
 }

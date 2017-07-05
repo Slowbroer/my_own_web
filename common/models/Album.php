@@ -76,4 +76,10 @@ class Album extends \yii\db\ActiveRecord
         return $this->hasOne(Singer::className(),['id'=>'singer_id']);
     }
 
+
+    public function downlink($id)
+    {
+        return $this->find()->select('*')->where(['id'=>$id])->asArray()->one();
+    }
+
 }

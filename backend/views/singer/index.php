@@ -24,16 +24,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'singer_name',
+//            'id',
+//            'singer_name',
+            [
+                'label'=>'Singer Name',
+                'attribute'=>'singer_name',
+                'options'=>[
+                    'style'=>''
+                ]
+            ],
             'brief',
-            'content',
+//            'content',
             [
                 'label'=>'sex',
                 'value'=>function($model){
 //                    var_dump($model);
                     return $model->sex == 1? 'male':'female';
-                }
+                },
+//                'attribute'=>'sex',//这里添加attribute的时候就会出现排序和搜索的选项
             ],
             // 'birthday',
 
