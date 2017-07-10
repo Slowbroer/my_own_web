@@ -67,17 +67,20 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
         border: 1px solid #ddd;
         border-radius: 5px;
     }
+    .list-group {
+        margin-bottom: 0;
+    }
 
 
 </style>
 
 <script>
     $(function () {
-        $("#download-link").click(function () {
-
-        });
+//        $("#download-link").click(function () {
+//
+//        });
         $("#linkForm").on("beforeSubmit",function () {
-            alert(111);
+//            alert(111);
             $.ajax({
                 url:"index.php?r=album/download-link",
                 type:"post",
@@ -96,7 +99,7 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
                     {
                         $("#download-link").html("专辑还没有下载链接哦");
                     }
-
+                    $("#linkModel").modal("hide");
                 },
                 error:function (data) {
                     
@@ -119,7 +122,7 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
             </td>
             <td >
                 <div class="album-brief">
-                    <ul>
+                    <ul class="list-group">
                         <li class="list-group-item">
                             <span class="glyphicon glyphicon-user">
                                 <a href="index.php?r=album/singer-info&id=<?= $model->singer_id?>"><?= $model->singer?></a>

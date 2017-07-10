@@ -7,6 +7,7 @@
  */
 //use Yii;
 use yii\widgets\LinkPager;
+use yii\bootstrap\Dropdown;
 
 
 $this->title = Yii::t("album",'Album List');
@@ -71,6 +72,36 @@ else
 
 </style>
 
+<!--<div class="dropdown">-->
+<!--    <a href="#" data-toggle="dropdown" class="dropdown-toggle">音乐类型 <b class="caret"></b></a>-->
+<!--    --><?php
+//    $items = array();
+//    foreach ($type_lists as $key=>$type_list)
+//    {
+//        $items[] = ['label'=>$type_list['type_name'],'url'=>'index.php?r=album/list&id='.$type_list['id']];
+//    }
+//
+//    echo Dropdown::widget([
+//        'items' => $items
+//    ]);
+//    ?>
+<!--</div>-->
+
+<div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">音乐类型
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <?php
+        foreach ($type_lists as $key=>$type_list)
+        {
+            echo "<li><a href='index.php?r=album/list&id=".$type_list['id']."'>".$type_list['type_name']."</a></li>";
+        }
+        ?>
+    </ul>
+</div>
+
+
 <div style="text-align: center">
     <?php
     echo LinkPager::widget(
@@ -93,33 +124,19 @@ else
             $types = explode(',',$list['type']);
             ?>
             <div class="album" id="first">
-                <img title="<?= $list['brief'];?>" src="images/albums/<?= $list['img'];?>">
-                <div style="display: none" class="album-brief">
+                <a href="index.php?r=album/info&id=<?= $list['id'];?>" target="_blank">
+                    <img title="<?= $list['brief'];?>" src="images/albums/<?= $list['img'];?>">
+                </a>
+                <div style="display: block" class="album-brief">
                     <p><a href="index.php?r=album/info&id=<?= $list['id'];?>"><?= $list['title'];?></a></p>
                     <p><a href="index.php?r=singer/info&id=<?= $list['singer_id'];?>"><?= $list['singer_name'];?></a></p>
-                    <p>
-                        <?php
-                        foreach ($types as $key=>$type)
-                        {
-                            echo "<a href='index.php?r=album/list&id=$type' >".$type_lists[$type]."</a>";
-                        }
-                        ?>
-                    </p>
                     <p ><?= $list['brief'];?></p>
                 </div>
             </div>
-
-<!--            <div class="album next" id="next">-->
-<!--                <span class="glyphicon glyphicon-chevron-right"></span>-->
-<!--            </div>-->
-
             <?php
         }
     }
     ?>
-
-
-
 </div>
 
 
@@ -166,22 +183,13 @@ else
 
     $(function () {
         waterFall();
-//        $("#next").mouseover(function () {
-//            $(this).append("<span id='next2'>下一页</span>");
+//        $(".album img").mouseover(function () {
+//            if($(this).parent().find(".album-brief").css('display')=='none')
+//            {
+//                $(".album-brief").hide(1000);
+//                $(this).parent().find(".album-brief").show(1000);
+//            }
 //        });
-//        $("#next").mouseout(function () {
-//            $("#next2").remove();
-//        });
-        $(".album img").mouseover(function () {
-            if($(this).parent().find(".album-brief").css('display')=='none')
-            {
-                $(".album-brief").hide(1000);
-                $(this).parent().find(".album-brief").show(1000);
-
-
-//                waterFall();
-            }
-        });
 
     });
 

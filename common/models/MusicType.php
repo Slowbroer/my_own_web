@@ -51,7 +51,9 @@ class MusicType extends \yii\db\ActiveRecord
     {
         $array = $this->find()->select("type_name,id")->asArray()->all();
 
-        return ArrayHelper::map($array,'id','type_name');
+        return $array;
+
+//        return ArrayHelper::map($array,'id','type_name');
 
     }
 }
