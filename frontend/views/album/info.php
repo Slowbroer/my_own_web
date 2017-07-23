@@ -28,6 +28,10 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
         text-align: center;
         font-family: fantasy;
     }
+
+    .album-content p {
+        font-family: cursive;
+    }
     .album-table {
         /*margin: 10px 20px;*/
         width: 100%;
@@ -69,6 +73,10 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
     }
     .list-group {
         margin-bottom: 0;
+    }
+
+    #comment {
+        margin-top: 20px;
     }
 
 
@@ -118,7 +126,7 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
     <table class="album-table" >
         <tr>
             <td  id="album-img" style="width: 30%;text-align: center">
-                <img src="<?= 'images/albums/'.$model->img;?>">
+                <img class="img-rounded" src="<?= 'images/albums/'.$model->img;?>">
             </td>
             <td >
                 <div class="album-brief">
@@ -146,6 +154,11 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
         </tr>
     </table>
 </div>
+
+<span style="position: fixed;right: 20px;opacity: 0.5;">
+<!--    <button type="button" class="btn btn-info" style="display: block" onclick="location.href='#edit-comment'">发表评价</button></br>-->
+    <button id="common-button" type="button" class="btn btn-info" style="display: block" onclick="location.href='#comment'">评价</button>
+</span>
 
 <div class="album-content">
     <?= \yii\helpers\Markdown::process($model->content);?>
@@ -183,6 +196,34 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
             <?php $form = ActiveForm::end(); ?>
         </div>
     </div>
+</div>
+
+<div id="comment" >
+    <h4>精选评论</h4>
+    <div style="border-top: 1px solid #ddd;padding-top: 20px;">
+
+        <ul style="">
+            <li>Cras justo odio疯狂价啊快就离开 发觉克己复礼卡即可 fkjahs</li>
+        </ul>
+        <hr/>
+        <ul style="">
+            <li>Cras justo odio疯狂价啊快就离开 发觉克己复礼卡即可 fkjahs</li>
+        </ul>
+        <hr/>
+        <ul style="">
+            <li>Cras justo odio疯狂价啊快就离开 发觉克己复礼卡即可 fkjahs</li>
+            <span style="float: right" class="glyphicon glyphicon-thumbs-up"></span>
+        </ul>
+        <hr/>
+    </div>
+</div>
+
+<div style="margin-top: 10px;">
+    <button class="btn btn-success">查看所有评论</button>
+</div>
+
+<div>
+
 </div>
 
 

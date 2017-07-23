@@ -17,7 +17,7 @@ use yii\helpers\ArrayHelper;
         var docObj=document.getElementById("albumImg");
 
         var imgObjPreview=document.getElementById("preview");
-        console.log(docObj.files);
+//        console.log(docObj.files);
         if(docObj.files && docObj.files[0])
         {
             //火狐下，直接设img属性
@@ -70,11 +70,11 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true,'style'=>'width:250px;']) ?>
 
-    <label>Img</label>
+    <?php //echo $form->field($model, 'img')->fileInput(['onchange'=>'setImagePreview()']); ?>
 
     <input type="file" id="albumImg" name="albumImg" onchange="setImagePreview();">
 
-    <div id="localImag"><img id="preview" src=""  style="display: block; width: 180px; height: 180px;"></div>
+    <div id="localImag"><img id="preview" src="../../frontend/web/images/albums/<?= $model->img?>"  style="display: block; width: 180px; height: 180px;"></div>
 
     <div class="date-picker">
     <?= $form->field($model, 'publish_time')->widget(DatePicker::className(),['options'=>[

@@ -6,6 +6,7 @@ use common\models\MusicType;
 use Yii;
 use common\models\Album;
 use common\models\AlbumSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -49,10 +50,17 @@ class AlbumController extends Controller
     {
         $searchModel = new AlbumSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//        var_dump($dataProvider);
 
+        $type = new MusicType();
+        $type_lists = $type->type_array();
+        $type_lists = ArrayHelper::map($type_lists,'id','type_name');
+
+var_dump($type_lists);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'type_lists' => $type_lists,
         ]);
     }
 

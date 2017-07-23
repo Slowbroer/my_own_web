@@ -17,6 +17,7 @@ if(empty($_GET['id']))
 }
 else
 {
+
     $this->params['breadcrumbs'][] = array('label'=>$this->title,'url'=>'index.php?r=album/list');
     $this->params['breadcrumbs'][] = $type_lists[$_GET['id']];
 }
@@ -39,11 +40,12 @@ else
         /*width: 180px;*/
         /*这里的width包含padding和border的原因是因为设置了box-sizing*/
         border: 1px solid whitesmoke;
+        border-radius: 5px;
         /*box-sizing: content-box;*/
     }
     @media screen and  (max-width: 360px) {
         .album {
-            width: 180px;
+            width: 160px;
         }
     }
     @media screen and (min-width: 360px){
@@ -95,7 +97,7 @@ else
         <?php
         foreach ($type_lists as $key=>$type_list)
         {
-            echo "<li><a href='index.php?r=album/list&id=".$type_list['id']."'>".$type_list['type_name']."</a></li>";
+            echo "<li><a href='index.php?r=album/list&id=".$key."'>".$type_list."</a></li>";
         }
         ?>
     </ul>
@@ -125,7 +127,7 @@ else
             ?>
             <div class="album" id="first">
                 <a href="index.php?r=album/info&id=<?= $list['id'];?>" target="_blank">
-                    <img title="<?= $list['brief'];?>" src="images/albums/<?= $list['img'];?>">
+                    <img class="img-rounded" title="<?= $list['brief'];?>" src="images/albums/<?= $list['img'];?>">
                 </a>
                 <div style="display: block" class="album-brief">
                     <p><a href="index.php?r=album/info&id=<?= $list['id'];?>"><?= $list['title'];?></a></p>

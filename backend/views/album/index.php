@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="album-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]);?>
 
     <p>
         <?= Html::a('Create Album', ['create'], ['class' => 'btn btn-success']) ?>
@@ -28,7 +28,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
 //            'content:ntext',
 //            'img',
-            'type',
+            'type'=>[
+                'label'=>'音乐类型',
+                'attribute' => 'type',
+                'value' => function($data) use($type_lists) {
+                    $type_array = explode(",",$data->type);
+                    $type = array();
+                    foreach ($type_array as $a)
+                    {
+                        $type[]= $type_lists[$a];
+                    }
+                    $type = implode(",",$type);
+                    return $type;
+                }
+            ],
             // 'link',
              'singer',
             // 'score',
