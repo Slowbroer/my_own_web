@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use frontend\models\CapCode;
+use frontend\models\IndexSearch;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -73,7 +74,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $search = new IndexSearch();
+
+        return $this->render('index',['search'=>$search]);
     }
 
     /**

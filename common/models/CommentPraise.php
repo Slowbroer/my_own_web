@@ -70,4 +70,5 @@ class CommentPraise extends \yii\db\ActiveRecord
 
 
 
+
 }

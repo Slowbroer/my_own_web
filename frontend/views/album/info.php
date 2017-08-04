@@ -7,6 +7,8 @@
  */
 
 use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Html;
+use yii\helpers\Url;
 
 $this->title = Yii::t("album",'Album Info');
 $this->params['breadcrumbs'][] = ['label'=>Yii::t('album','Album List'),'url'=>['list']];//TODO::这里是面包板的很好展示，注意这里的'url'=>['list']要是这样的格式才能在当前的controller
@@ -16,7 +18,7 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
 
 ?>
 
-<style>
+<style xmlns="http://www.w3.org/1999/html">
     .album-info {
         margin: 50px 0 40px 0;
         /*border: 1px solid #ddd;*/
@@ -66,7 +68,7 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
 
     .album-content {
         margin: 10px 0;
-        padding: 10px 5px;
+        padding: 10px 20px;
         /*border-color: #00b3ee;*/
         border: 1px solid #ddd;
         border-radius: 5px;
@@ -76,7 +78,7 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
     }
 
     #comment {
-        margin-top: 20px;
+        margin-top: 50px;
     }
 
 
@@ -119,7 +121,31 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
     function showLink() {
         $("#linkModel").modal("show");
     }
+    function praiseComment(id,ele) {
+        $.ajax({
+            url:"<?= Url::toRoute("album/prise-comment")?>",
+            data:"id="+id,
+            type:"get",
+            success:function (data) {
+//                console.log(data);
+//                alert(data);
+                data=eval("("+data+")");
+                if(data.code==1)
+                {
+                    alert("111");
+                    $(ele).attr("onclick",'');
+                    $(ele).attr("class",'glyphicon glyphicon-heart')
+                }
+            },
+            error:function () {
+
+            }
+        });
+    }
 </script>
+
+
+<div style="">
 
 <div class="album-info" >
 
@@ -157,7 +183,7 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
 
 <span style="position: fixed;right: 20px;opacity: 0.5;">
 <!--    <button type="button" class="btn btn-info" style="display: block" onclick="location.href='#edit-comment'">发表评价</button></br>-->
-    <button id="common-button" type="button" class="btn btn-info" style="display: block" onclick="location.href='#comment'">评价</button>
+<!--    <button id="common-button" type="button" class="btn btn-info" style="display: block" onclick="location.href='#comment'">评价</button>-->
 </span>
 
 <div class="album-content">
@@ -198,33 +224,48 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
     </div>
 </div>
 
-<div id="comment" >
-    <h4>精选评论</h4>
-    <div style="border-top: 1px solid #ddd;padding-top: 20px;">
 
-        <ul style="">
-            <li>Cras justo odio疯狂价啊快就离开 发觉克己复礼卡即可 fkjahs</li>
-        </ul>
-        <hr/>
-        <ul style="">
-            <li>Cras justo odio疯狂价啊快就离开 发觉克己复礼卡即可 fkjahs</li>
-        </ul>
-        <hr/>
-        <ul style="">
-            <li>Cras justo odio疯狂价啊快就离开 发觉克己复礼卡即可 fkjahs</li>
-            <span style="float: right" class="glyphicon glyphicon-thumbs-up"></span>
-        </ul>
-        <hr/>
+
+    <div id="comment" >
+
+
+        <a style="float: right">查看所有评论……</a>
+        <h4>精选评论</h4>
+
+        <div style="border-top: 1px solid #ddd;padding-top: 20px;">
+            <?php foreach ($hot_comments as $key=>$hot_comment){?>
+            <ul style="">
+                <li><?php echo Html::encode($hot_comment['content']);?></li>
+                    <span style="float: right;" class="<?php if($hot_comment['is_praised']){ echo "glyphicon glyphicon-heart";}else{echo "glyphicon glyphicon-heart-empty";}?>" onclick="praiseComment(<?= $hot_comment['id']?>,this);">(<?php echo Html::encode($hot_comment['praise']);?>)</span>
+            </ul>
+            <hr/>
+            <?php }?>
+        </div>
     </div>
+
+    <div style="margin-top: 20px;">
+        <?php $comment_form = ActiveForm::begin(['action'=>Url::toRoute("album/comment")]); ?>
+
+        <?= $comment_form->field($comment_model,'content')->textarea(['style'=>'height:150px;'])->label(false);?>
+
+        <?= $comment_form->field($comment_model, 'type')->hiddenInput()->label(false);?>
+
+        <?= $comment_form->field($comment_model, 'id')->hiddenInput()->label(false);?>
+
+        <div style="text-align: right;">
+            <?= Html::submitButton("评论",['class'=>'btn btn-default']);?>
+        </div>
+
+
+        <?php ActiveForm::end(); ?>
+
+
+    </div>
+
 </div>
 
-<div style="margin-top: 10px;">
-    <button class="btn btn-success">查看所有评论</button>
-</div>
 
-<div>
 
-</div>
 
 
 

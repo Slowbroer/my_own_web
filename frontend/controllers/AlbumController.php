@@ -10,8 +10,11 @@ namespace frontend\controllers;
 
 
 use common\models\Album;
+use common\models\CommentPraise;
 use common\models\MusicType;
 use frontend\models\AlbumSearch;
+use frontend\models\Comment;
+use frontend\models\CommentForm;
 use frontend\models\LinkForm;
 use yii\data\Pagination;
 use yii\web\Controller;
@@ -31,7 +34,14 @@ class AlbumController extends Controller
             $form = new AlbumSearch();
             $linkModel = new LinkForm();
             $linkModel->album_id = $id;
-            echo $this->render('info',['model'=>$album,'form'=>$form,'linkModel'=>$linkModel]);
+
+            $comment = new Comment();
+            $hot_comments = $comment->hot_album_comment($id);
+
+            $comment_model = new CommentForm();
+            $comment_model->type = 1;
+            $comment_model->id = $id;
+            echo $this->render('info',['model'=>$album,'form'=>$form,'linkModel'=>$linkModel,'comment_model'=>$comment_model,'hot_comments'=>$hot_comments]);
 
         }
         else
@@ -40,7 +50,7 @@ class AlbumController extends Controller
         }
     }
 
-
+//    高级搜索
     public function actionSearch()
     {
         $albumSearch = new AlbumSearch();
@@ -48,6 +58,11 @@ class AlbumController extends Controller
         {
 
         }
+
+    }
+
+    //首页的搜索
+    public function actionIndexSearch(){
 
     }
 
@@ -98,6 +113,67 @@ class AlbumController extends Controller
             }
         }
         return json_encode(['code'=>0]);
+    }
+
+
+    public function actionComment(){
+        if(!Yii::$app->user->isGuest)
+        {
+            $commentForm = new CommentForm();
+
+            if($commentForm->load(Yii::$app->request->post())&&$commentForm->add_comment(Yii::$app->user->getId()))
+            {
+                echo $this->render("/site/success",['message'=>'提交成功']);
+            }
+            else
+            {
+                echo $this->render("/site/error",['message'=>"提交失败"]);
+            }
+        }
+        else
+        {
+            echo $this->render("/site/error",['message'=>'您还没有登录，请先登录']);
+        }
+
+
+    }
+
+
+    public function actionPriseComment(){
+        $id = Yii::$app->request->get("id");
+
+        if(!empty($id))
+        {
+            $comment = Comment::findOne(['id'=>$id]);
+            $praise = CommentPraise::findOne(['user_id'=>Yii::$app->user->id,'comment_id'=>$id]);
+            if(!isset($praise))
+            {
+                if(!$comment->add_praise())
+                {
+                    return json_encode(['code'=>0]);
+                }
+                else
+                {
+                    $praise = new CommentPraise();
+                    $praise->user_id = Yii::$app->user->id;
+                    $praise->comment_id = $id;
+                    $praise->add_time = time();
+                    if($praise->save())
+                    {
+                        return json_encode(['code'=>1,'num'=>$comment->praise]);
+                    }
+                    return json_encode(['code'=>0]);
+                }
+            }
+            else
+            {
+                return json_encode(['code'=>0]);
+            }
+        }
+        else
+        {
+            return json_encode(['code'=>0]);
+        }
     }
 
 }
