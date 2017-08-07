@@ -152,7 +152,9 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
     <table class="album-table" >
         <tr>
             <td  id="album-img" style="width: 30%;text-align: center">
-                <img class="img-rounded" src="<?= 'images/albums/'.$model->img;?>">
+                <a href="<?= \yii\helpers\Url::toRoute(['album/info','id'=>$model->id]);?>">
+                    <img class="img-rounded" src="<?= 'images/albums/'.$model->img;?>">
+                </a>
             </td>
             <td >
                 <div class="album-brief">
@@ -229,7 +231,7 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
     <div id="comment" >
 
 
-        <a style="float: right">查看所有评论……</a>
+        <a style="float: right" href="<?= Url::toRoute(['album/comment-list','id'=>$model->id])?>">查看所有评论……</a>
         <h4>精选评论</h4>
 
         <div style="border-top: 1px solid #ddd;padding-top: 20px;">

@@ -176,4 +176,23 @@ class AlbumController extends Controller
         }
     }
 
+    public function actionCommentList(){
+        $id = Yii::$app->request->get("id");
+
+        $comment = new Comment();
+        $comment_lists = $comment->comment_list($id,1);
+
+        $linkModel = new LinkForm();
+        $linkModel->album_id = $id;
+
+        $album_info = Album::findOne(['id'=>$id]);
+
+        $comment_model = new CommentForm();
+        $comment_model->type = 1;
+        $comment_model->id = $id;
+
+        return $this->render("comment_list",['comment_lists'=>$comment_lists['lists'],'album_info'=>$album_info,'page'=>$comment_lists['page'],'linkModel'=>$linkModel,'comment_model'=>$comment_model]);
+
+    }
+
 }

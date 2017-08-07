@@ -5,6 +5,7 @@ namespace frontend\models;
 use common\models\CommentPraise;
 use common\models\User;
 use Yii;
+use yii\data\Pagination;
 
 /**
  * This is the model class for table "comment".
@@ -55,15 +56,22 @@ class Comment extends \yii\db\ActiveRecord
             'is_show' => 'Is Show',
             'id_value' => 'Ann ID',
             'level' => 'Level',
-            'praise' => '点赞数'
+            'praise' => '点赞数',
+            'type' => '种类'
 
         ];
     }
 
 
-    public function comment_list($blog_id)
+    public function comment_list($id_value,$type)
     {
-        $lists = $this->find()->where(['ann_id'=>$blog_id])->orderBy("add_time")->asArray()->all();
+
+        $query = $this->find()->where(['id_value'=>$id_value,'type'=>$type]);
+        $count = $query->count();
+        $page = new Pagination(['totalCount'=>$count]);
+
+        $lists = $query->offset($page->offset)->limit($page->limit)->orderBy("add_time")->asArray()->all();
+        $praise = new CommentPraise();
 
         foreach($lists as $key => $list)
         {
@@ -77,8 +85,9 @@ class Comment extends \yii\db\ActiveRecord
             {
                 $lists[$key]['user_name'] = "匿名";
             }
+            $lists[$key]['is_praised'] = $praise->is_praise($list['id'],$list['user_id']);
         }
-        return $lists;
+        return ['lists'=>$lists,'page'=>$page];
 
     }
 
@@ -100,6 +109,11 @@ class Comment extends \yii\db\ActiveRecord
         return $this->save();
     }
 
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(),['id'=>'user_id']);
+    }
 
 
 

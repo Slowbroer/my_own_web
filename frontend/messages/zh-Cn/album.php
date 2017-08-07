@@ -12,6 +12,7 @@ return [
     'Singer'=>'歌手',
     'Publish Time'=>'发布时间',
     'Album List'=>'专辑列表',
-    'Album Info'=>'专辑信息'
+    'Album Info'=>'专辑信息',
+    'Comment List'=>'评论列表',
 
 ];
