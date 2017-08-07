@@ -118,17 +118,6 @@ $this->title = 'Slowbro';
 
 </div>
 
-<!--<div class="index-content" style="margin: 0 auto">-->
-<!--    <div class="page-header">-->
-<!--        <h3>今日推荐</h3>-->
-<!--    </div>-->
-<!--    <div class="img-floor" style="text-align: center;">-->
-<!--        <img class="index-img" src="--><?//= \yii\helpers\Url::to("@web/images/albums/born-to-die.jpg");?><!--">-->
-<!--        <img class="index-img" src="--><?//= \yii\helpers\Url::to("@web/images/albums/born-to-die.jpg");?><!--">-->
-<!--        <img class="index-img" src="--><?//= \yii\helpers\Url::to("@web/images/albums/born-to-die.jpg");?><!--">-->
-<!--    </div>-->
-<!--</div>-->
-
 
 <link href="css/demo.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="css/slideshows.css" />

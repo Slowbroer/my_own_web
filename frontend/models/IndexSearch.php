@@ -19,7 +19,7 @@ class IndexSearch extends Model
     public function rules()
     {
         return [
-            ['keyword','required'],
+//            ['keyword','required'],
             ['keyword','string']
         ];
     }
