@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\MusicType;
+use common\models\Singer;
 use Yii;
 use common\models\Album;
 use common\models\AlbumSearch;
@@ -54,9 +55,11 @@ class AlbumController extends Controller
 
         $type = new MusicType();
         $type_lists = $type->type_array();
-        $type_lists = ArrayHelper::map($type_lists,'id','type_name');
+//        var_dump($type_lists);
+//        $type_lists = ArrayHelper::map($type_lists,'id','type_name');
 
-var_dump($type_lists);
+
+//        die();
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -88,6 +91,8 @@ var_dump($type_lists);
 //        $types = MusicType::findOne(['<>','type_name','']);
 //        var_dump($types);
 //        die();
+        $singer = Singer::find()->select("singer_name,id")->orderBy("singer_name")->asArray()->asArray()->all();
+        $singers = ArrayHelper::map($singer,'id','singer_name');
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -106,7 +111,7 @@ var_dump($type_lists);
                     else
                     {
                         move_uploaded_file($_FILES["albumImg"]['tmp_name'],Yii::getAlias("@frontend/web/images/albums/").$_FILES["albumImg"]['name']);
-                        $model->img = time().$_FILES["albumImg"]['name'];
+                        $model->img = $_FILES["albumImg"]['name'];
                     }
                 }
             }
@@ -117,6 +122,7 @@ var_dump($type_lists);
             $model->add_time = $model->update_time = time();
             $model->publish_time = strtotime($model->publish_time);
             $model->type = implode(",",$model->type);
+            $model->singer = $singers[$model->singer_id];
 
             if($model->save())
             {
@@ -124,15 +130,17 @@ var_dump($type_lists);
             }
             else
             {
-                return $this->render('create', [
-                    'model' => $model,
-                    'types' => $types,
-                ]);
+//                return $this->render('create', [
+//                    'model' => $model,
+//                    'types' => $types,
+//                ]);
+                return $this->render("/site/error",['name'=>'error','message'=>'保存失败']);
             }
         } else {
             return $this->render('create', [
                 'model' => $model,
                 'types' => $types,
+                'singers' => $singers,
             ]);
         }
     }
@@ -147,8 +155,8 @@ var_dump($type_lists);
     {
         $model = $this->findModel($id);
         $types = MusicType::find()->where(['<>','type_name',''])->asArray()->all();//这里只是用来练习where的使用，这里其实可以到源码里面进行查看
-
-
+        $singer = Singer::find()->select("singer_name,id")->orderBy("singer_name")->asArray()->asArray()->all();
+        $singers = ArrayHelper::map($singer,'id','name');
         if ($model->load(Yii::$app->request->post())) {
 
             if(isset($_FILES['albumImg']) && ($_FILES['albumImg']['type']=='image/gif'||$_FILES['albumImg']['type']=='image/jpeg'||$_FILES['albumImg']['type']=='image/png')&&$_FILES['albumImg']['size']<2000000)
@@ -191,6 +199,7 @@ var_dump($type_lists);
         return $this->render('update', [
             'model' => $model,
             'types' => $types,
+            'singers' => $singers,
         ]);
     }
 

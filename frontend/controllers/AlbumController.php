@@ -15,6 +15,7 @@ use common\models\MusicType;
 use frontend\models\AlbumSearch;
 use frontend\models\Comment;
 use frontend\models\CommentForm;
+use frontend\models\IndexSearch;
 use frontend\models\LinkForm;
 use yii\data\Pagination;
 use yii\web\Controller;
@@ -63,6 +64,16 @@ class AlbumController extends Controller
 
     //首页的搜索
     public function actionIndexSearch(){
+
+        $search = new IndexSearch();
+        if($search->load(Yii::$app->request->get())&&$search->validate())
+        {
+            $MusicType = new MusicType();
+            $type_array = $MusicType->type_array();
+
+            $album_lists = $search->searchAlbum();
+            echo $this->render("list",['lists'=>$album_lists['album_list'],'page'=>$album_lists['page'],'keyword'=>$search->keyword,'type_lists'=>$type_array]);
+        }
 
     }
 

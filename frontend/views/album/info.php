@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = ['label'=>$this->title];
         margin: 10px 0;
         padding: 10px 20px;
         /*border-color: #00b3ee;*/
-        border: 1px solid #ddd;
+        /*border: 1px solid #ddd;*/
         border-radius: 5px;
     }
     .list-group {

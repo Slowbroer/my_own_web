@@ -36,7 +36,7 @@ class Album extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['content', 'type', 'score'], 'required'],
+            [['type', 'score'], 'required'],
             [['content','brief','type'], 'string'],
             [['publish_time', 'add_time', 'update_time','singer_id'], 'safe'],
             [['score'], 'number'],

@@ -91,7 +91,7 @@ use yii\helpers\ArrayHelper;
 
     <?php //echo $form->field($model, 'type',['options'=>['style'=>'display:inline-block;']])->dropDownList(ArrayHelper::map($types,'id','type_name'),['style'=>'width:250px;']) ?>
 
-    <?= $form->field($model, 'singer',['options'=>['style'=>'display:inline-block;']])->textInput(['maxlength' => true,'style'=>'width:250px;']) ?>
+    <?= $form->field($model, 'singer_id',['options'=>['style'=>'display:inline-block;']])->dropDownList($singers,['maxlength' => true,'style'=>'width:250px;']) ?>
 
     <?= $form->field($model, 'score',['options'=>['style'=>'display:inline-block;']])->textInput(['style'=>'width:250px;d']) ?>
 

@@ -45,12 +45,12 @@ class Article extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'content' => 'Content',
+            'title' => '标题',
+            'content' => '内容',
             'add_time' => 'Add Time',
             'update_time' => 'Update Time',
-            'brief' => 'Brief',
-            'title_img' => 'Title Img',
+            'brief' => '简介',
+            'title_img' => '封面图片',
         ];
     }
 }

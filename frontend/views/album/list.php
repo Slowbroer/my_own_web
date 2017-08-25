@@ -72,6 +72,10 @@ else
         text-decoration: underline;
     }
 
+    .list-group {
+        width: ;
+    }
+
 </style>
 
 <!--<div class="dropdown">-->
