@@ -23,6 +23,7 @@
         }
     }
     function showError(error){
+//        console.log(error.code);
 
         switch(error.code) {
             case error.PERMISSION_DENIED:
