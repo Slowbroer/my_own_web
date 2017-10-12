@@ -277,5 +277,10 @@ class SiteController extends Controller
     }
 
 
+    public function actionPosition(){
+        echo $this->render("position");
+    }
+
+
 
 }
