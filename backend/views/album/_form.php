@@ -5,6 +5,8 @@ use yii\widgets\ActiveForm;
 use ijackua\lepture\Markdowneditor;
 use kartik\date\DatePicker;
 use yii\helpers\ArrayHelper;
+use yii\grid\GridView;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Album */
@@ -91,9 +93,11 @@ use yii\helpers\ArrayHelper;
 
     <?php //echo $form->field($model, 'type',['options'=>['style'=>'display:inline-block;']])->dropDownList(ArrayHelper::map($types,'id','type_name'),['style'=>'width:250px;']) ?>
 
-    <?= $form->field($model, 'singer_id',['options'=>['style'=>'display:inline-block;']])->dropDownList($singers,['maxlength' => true,'style'=>'width:250px;']) ?>
+    <?php //echo $form->field($model, 'singer_id',['options'=>['style'=>'display:inline-block;']])->dropDownList($singers,['maxlength' => true,'style'=>'width:250px;','prompt'=>'请选择']); ?>
 
-    <?= $form->field($model, 'score',['options'=>['style'=>'display:inline-block;']])->textInput(['style'=>'width:250px;d']) ?>
+    <?php echo $form->field($model,'singer_id',['options'=>['style'=>'width:300px;']])->widget(Select2::className(),['data'=>$singers,'options'=>['placeholder'=>'请选择']])?>
+
+    <?= $form->field($model, 'score',['options'=>['style'=>'']])->textInput(['style'=>'width:250px;d']) ?>
 
     <?= $form->field($model, 'link')->textInput(['maxlength' => true]); ?>
 

@@ -19,7 +19,8 @@
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
       "ijackua/yii2-lepture-markdown-editor-widget":"*",
-        "kartik-v/yii2-widget-datepicker": "*"
+        "kartik-v/yii2-widget-datepicker": "*",
+        "kartik-v/yii2-widget-select2": "@dev"
 
     },
     "require-dev": {
