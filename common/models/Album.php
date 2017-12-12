@@ -13,6 +13,7 @@ use Yii;
  * @property string $img
  * @property integer $type
  * @property string $link
+ * @property string $link_password
  * @property string $singer
  * @property integer $singer_id
  * @property double $score
@@ -40,7 +41,7 @@ class Album extends \yii\db\ActiveRecord
             [['content','brief','type'], 'string'],
             [['publish_time', 'add_time', 'update_time','singer_id'], 'safe'],
             [['score'], 'number'],
-            [['title', 'img', 'link', 'singer',], 'string', 'max' => 255],
+            [['title', 'img', 'link', 'singer','link_password'], 'string', 'max' => 255],
             [['brief'],'string','max'=>255]
         ];
     }
@@ -63,6 +64,7 @@ class Album extends \yii\db\ActiveRecord
             'add_time' => 'Add Time',
             'update_time' => 'Update Time',
             'brief' => '简介',
+            'link_password'=>'链接码'
         ];
     }
 
@@ -79,7 +81,7 @@ class Album extends \yii\db\ActiveRecord
 
     public function downlink($id)
     {
-        return $this->find()->select('*')->where(['id'=>$id])->asArray()->one();
+        return $this->find()->select('link,link_password')->where(['id'=>$id])->asArray()->one();
     }
 
 }

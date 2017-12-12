@@ -114,13 +114,14 @@ class AlbumController extends Controller
         {
             $info = Album::findOne(['id'=>$form->album_id]);
             $link = $info->link;
+
             if(empty($link))
             {
                 return json_encode(['code'=>2]);
             }
             else
             {
-                return json_encode(['code'=>1,'link'=>$link]);
+                return json_encode(['code'=>1,'link'=>$link,'link_pw'=>$info->link_password]);
             }
         }
         return json_encode(['code'=>0]);
