@@ -18,7 +18,7 @@ use yii\data\Pagination;
  * @property integer $id_value
  * @property integer $level
  * @property integer $type
- * type：1专辑，2博客
+ * type：1专辑，2博客 3,游戏
  * @property integer $praise
  */
 class Comment extends \yii\db\ActiveRecord
@@ -68,7 +68,9 @@ class Comment extends \yii\db\ActiveRecord
 
         $query = $this->find()->where(['id_value'=>$id_value,'type'=>$type]);
         $count = $query->count();
-        $page = new Pagination(['totalCount'=>$count]);
+        $page = new Pagination(['totalCount'=>$count,'params'=>array_merge($_GET,[
+            'id'=>$id_value
+        ])]);
 
         $lists = $query->offset($page->offset)->limit($page->limit)->orderBy("add_time")->asArray()->all();
         $praise = new CommentPraise();

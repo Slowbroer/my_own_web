@@ -42,6 +42,7 @@ class AlbumController extends Controller
             $comment_model = new CommentForm();
             $comment_model->type = 1;
             $comment_model->id = $id;
+
             echo $this->render('info',['model'=>$album,'form'=>$form,'linkModel'=>$linkModel,'comment_model'=>$comment_model,'hot_comments'=>$hot_comments]);
 
         }

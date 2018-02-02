@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Album;
 use frontend\models\CapCode;
 use frontend\models\IndexSearch;
 use Yii;
@@ -76,7 +77,10 @@ class SiteController extends Controller
     {
         $search = new IndexSearch();
 
-        return $this->render('index',['search'=>$search]);
+        $albums = Album::find()->where(['status'=>1])->limit(5)->all();
+
+
+        return $this->render('index',['search'=>$search,'albums'=>$albums]);
     }
 
     /**

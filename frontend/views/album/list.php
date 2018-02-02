@@ -129,7 +129,7 @@ else
         {
             $types = explode(',',$list['type']);
             ?>
-            <div class="album" id="first">
+            <div class="album">
                 <a href="index.php?r=album/info&id=<?= $list['id'];?>" target="_blank">
                     <img class="img-rounded" title="<?= $list['brief'];?>" src="images/albums/<?= $list['img'];?>">
                 </a>

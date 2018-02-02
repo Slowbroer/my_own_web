@@ -81,6 +81,33 @@ $this->title = 'Slowbro';
         }
     }
 
+    .album-list {
+        margin: 50px;
+    }
+    .album-list h4 {
+        text-align: left;
+    }
+    .albums {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .albums .album-content {
+        padding: 10px;
+        width: 200px;
+    }
+    .img-rounded {
+        width: 180px;
+    }
+    .album-brief p {
+        height: 20px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+    }
+
+
 
 
 </style>
@@ -104,6 +131,9 @@ $this->title = 'Slowbro';
             <?php $form = \yii\bootstrap\ActiveForm::end();?>
 
 
+
+
+
 <!--            <form action="" method="post">-->
 <!---->
 <!--                <input name="_csrf-frontend" type="hidden" id="_csrf" value="">-->
@@ -111,6 +141,24 @@ $this->title = 'Slowbro';
 <!--                <input class="search__input" type="text" placeholder="Search">-->
 <!---->
 <!--            </form>-->
+        </div>
+
+        <div class="album-list">
+            <h4>今日推荐</h4>
+            <div class="albums">
+                <?php foreach ($albums as $album){?>
+                    <div class="album-content">
+                        <a href="index.php?r=album/info&id=<?= $album->id;?>" target="_blank">
+                            <img class="img-rounded" title="<?= $album->brief;?>" src="images/albums/<?= $album->img;?>">
+                        </a>
+                        <div style="" class="album-brief">
+                            <p><a href="index.php?r=album/info&id=<?= $album->id;?>"><?= $album->title;?></a></p>
+                            <p><a href="index.php?r=singer/info&id=<?= $album->singer_id;?>"><?= $album->albumSinger->singer_name;?></a></p>
+                            <p><?= $album->brief;?></p>
+                        </div>
+                    </div>
+                <?php }?>
+            </div>
         </div>
         <!--        <img class='weather' src='cloudy.png'>-->
     </div>

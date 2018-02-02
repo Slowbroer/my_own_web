@@ -64,6 +64,8 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
+    <?php //var_dump(Yii::$app->user->identity);?>
+
     <div class="container" style="">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

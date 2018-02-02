@@ -1,0 +1,114 @@
+
+
+/***********************************专辑详情start****************/
+.album-info {
+    margin: 50px 0 40px 0;
+    /*border: 1px solid #ddd;*/
+    /*border-radius: 5px;*/
+}
+
+.album-content h2
+{
+    text-align: center;
+    font-family: fantasy;
+}
+
+.album-content p {
+    font-family: cursive;
+}
+.album-table {
+    /*margin: 10px 20px;*/
+    width: 100%;
+    margin: 10px auto;
+}
+
+.albumImg{
+
+    height: 300px;
+    /*background-image: url("../images/albums/2c8cd158ccbf6c81fe9b626bbe3eb13532fa4097.jpg");*/
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:cover;
+}
+
+.album-img{
+
+    margin-top: -266px;
+    text-align: center;
+    color:#ff8b88;
+    /*margin-left: 50%;*/
+    position: relative;
+    display: block;
+
+}
+
+.album-glass{
+    /*width: 287px;*/
+    height: 300px;
+    background: inherit;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -ms-filter: blur(5px);
+    -o-filter: blur(5px);
+    filter: blur(5px);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=4, MakeShadow=false);
+}
+
+
+
+
+@media screen and (min-width: 715px) {
+    .album-img img {
+        width: 200px;
+    }
+    .album-brief {
+        margin: 0 40px 0 10px;
+    }
+}
+@media screen and (min-width: 356px) and (max-width: 715px) {
+    .album-img img {
+        width: 180px;
+    }
+    .album-brief {
+        margin: 0 20px 0 10px;
+    }
+}
+@media screen and (max-width: 356px) {
+    .album-img img {
+        width: 160px;
+    }
+    .album-brief {
+        margin: 0 10px;
+    }
+}
+
+.other-info {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.info-list {
+    display: inline-block;
+    margin: 5px 20px;
+    width: 100px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.album-content {
+    margin: 10px 0;
+    padding: 10px 20px;
+    /*border-color: #00b3ee;*/
+    /*border: 1px solid #ddd;*/
+    border-radius: 5px;
+}
+.list-group {
+    margin-bottom: 0;
+}
+
+#comment {
+    margin-top: 50px;
+}
+
+/**********************************专辑详情end*********/

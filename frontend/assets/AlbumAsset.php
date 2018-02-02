@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: linpeiyu
- * Date: 2016-09-08
- * Time: 15:35
+ * User: Slowbro
+ * Date: 17/12/12
+ * Time: AM11:18
  */
 
 namespace frontend\assets;
@@ -11,15 +11,15 @@ namespace frontend\assets;
 
 use yii\web\AssetBundle;
 
-class BlogAsset extends AssetBundle {
+class AlbumAsset extends AssetBundle
+{
 
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $js = [
-        "js/blog.js",
+        "js/album.js",
     ];
     public $css = [
-        'css/blog.css'
+        'css/album.css'
     ];
-
 }
