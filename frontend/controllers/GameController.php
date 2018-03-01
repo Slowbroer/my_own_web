@@ -73,4 +73,17 @@ class GameController extends Controller
         return json_encode($result['list']);
     }
 
+    public function actionLittleIndex()
+    {
+        $game = new Game();
+        $new_release = $game->new_release();
+        $rank_game = $game->rank_order();
+
+        return json_encode(array(
+            'new'=>$new_release,
+            'rank'=>$rank_game,
+        ));
+    }
+
+
 }

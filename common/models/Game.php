@@ -76,4 +76,14 @@ class Game extends \yii\db\ActiveRecord
             'region' => 'Region',
         ];
     }
+
+    public function new_release($count=5)
+    {
+        return $this->find()->limit($count)->orderBy("id desc")->asArray()->all();
+    }
+
+    public function rank_order($count=5)
+    {
+        return $this->find()->limit($count)->orderBy("score desc")->asArray()->all();
+    }
 }
