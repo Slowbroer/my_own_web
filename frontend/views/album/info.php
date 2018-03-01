@@ -13,8 +13,8 @@ use frontend\assets\BlogAsset;
 use frontend\assets\AlbumAsset;
 
 $this->title = Yii::t("album",'Album Info');
-$this->params['breadcrumbs'][] = ['label'=>Yii::t('album','Album List'),'url'=>['list']];//TODO::这里是面包板的很好展示，注意这里的'url'=>['list']要是这样的格式才能在当前的controller
-$this->params['breadcrumbs'][] = ['label'=>$this->title];
+//$this->params['breadcrumbs'][] = ['label'=>Yii::t('album','Album List'),'url'=>['list']];//TODO::这里是面包板的很好展示，注意这里的'url'=>['list']要是这样的格式才能在当前的controller
+//$this->params['breadcrumbs'][] = ['label'=>$this->title];
 
 AlbumAsset::register($this);
 
@@ -28,6 +28,14 @@ AlbumAsset::register($this);
         <div class="album-glass"></div>
         <div class="album-img">
             <img class="img-rounded" src="<?= 'images/albums/'.$model->img;?>">
+        </div>
+    </div>
+    <div class="albumImg-mobile">
+        <img src="<?= 'images/albums/'.$model->img;?>" >
+        <div>
+            <p >
+                <?= $model->score;?>
+            </p>
         </div>
     </div>
 
@@ -54,6 +62,12 @@ AlbumAsset::register($this);
 <!--    <button id="common-button" type="button" class="btn btn-info" style="display: block" onclick="location.href='#comment'">评价</button>-->
 </span>
 
+
+<div class="album-brief">
+    <p >
+        <?= $model->brief;?>
+    </p>
+</div>
 <div class="album-content">
     <?= \yii\helpers\Markdown::process($model->content);?>
 </div>
@@ -111,6 +125,7 @@ AlbumAsset::register($this);
         </div>
     </div>
 
+    <?php if(0){?>
     <div style="margin-top: 20px;">
         <?php $comment_form = ActiveForm::begin(['action'=>Url::toRoute("album/comment")]); ?>
 
@@ -124,11 +139,9 @@ AlbumAsset::register($this);
             <?= Html::submitButton("评论",['class'=>'btn btn-default']);?>
         </div>
 
-
         <?php ActiveForm::end(); ?>
-
-
     </div>
+    <?php }?>
 
 </div>
 

@@ -17,6 +17,7 @@ use Yii;
  * @property string $score 评分
  * @property int $platform 1:ps4,2:switch,3:xbox,4:3ds,5:psv
  * @property int $onsale 1:true,0:nope
+ * @property string $sale_price 促销价格
  * @property int $sale_start_time 促销开始时间
  * @property int $sale_end_time 促销结束时间
  * @property int $have_dlc 是否有dlc，1:是，0:不是
@@ -42,7 +43,7 @@ class Game extends \yii\db\ActiveRecord
     {
         return [
             [['content'], 'string'],
-            [['price', 'score', 'region'], 'number'],
+            [['price', 'score', 'sale_price', 'region'], 'number'],
             [['platform', 'onsale', 'sale_start_time', 'sale_end_time', 'have_dlc', 'have_demo', 'release_time'], 'integer'],
             [['name', 'picture', 'language'], 'string', 'max' => 255],
             [['developer', 'publisher'], 'string', 'max' => 100],
@@ -65,6 +66,7 @@ class Game extends \yii\db\ActiveRecord
             'score' => 'Score',
             'platform' => 'Platform',
             'onsale' => 'Onsale',
+            'sale_price' => 'Sale Price',
             'sale_start_time' => 'Sale Start Time',
             'sale_end_time' => 'Sale End Time',
             'have_dlc' => 'Have Dlc',

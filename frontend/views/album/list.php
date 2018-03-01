@@ -48,7 +48,12 @@ else
             width: 160px;
         }
     }
-    @media screen and (min-width: 360px){
+    @media screen and (min-width: 360px) and (max-width: 715px){
+        .album {
+            width: 140px;
+        }
+    }
+    @media screen and (min-width: 715px){
         .album {
             width: 180px;
         }
