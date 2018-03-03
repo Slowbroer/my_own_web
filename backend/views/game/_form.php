@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Game */
@@ -14,37 +15,41 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'developer')->textInput(['maxlength' => true]) ?>
+    <?php //echo $form->field($model, 'developer')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'publisher')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'picture')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+    <?php //echo $form->field($model, 'publisher')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'score')->textInput(['maxlength' => true]) ?>
+    <?php echo $form->field($model, 'score', ['options'=>['style'=>'width:300px;']])
+        ->widget(Select2::className(),['data'=>$game_scores,'options'=>['placeholder'=>'请选择']]) ?>
 
-    <?= $form->field($model, 'platform')->textInput() ?>
+    <?= $form->field($model, 'picture')->fileInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'onsale')->textInput() ?>
+    <img src="<?php echo $model->picture ?>" style="width: 200px;object-fit: cover">
 
-    <?= $form->field($model, 'sale_price')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'sale_start_time')->textInput() ?>
 
-    <?= $form->field($model, 'sale_end_time')->textInput() ?>
+    <?php //echo $form->field($model, 'platform')->textInput() ?>
 
-    <?= $form->field($model, 'have_dlc')->textInput() ?>
+    <?php //echo $form->field($model, 'onsale')->textInput() ?>
 
-    <?= $form->field($model, 'have_demo')->textInput() ?>
+    <?php //echo $form->field($model, 'sale_price')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'release_time')->textInput() ?>
+    <?php //echo $form->field($model, 'sale_start_time')->textInput() ?>
 
-    <?= $form->field($model, 'language')->textInput(['maxlength' => true]) ?>
+    <?php //echo $form->field($model, 'sale_end_time')->textInput() ?>
 
-    <?= $form->field($model, 'region')->textInput(['maxlength' => true]) ?>
+    <?php //echo $form->field($model, 'have_dlc')->textInput() ?>
+
+    <?php //echo $form->field($model, 'have_demo')->textInput() ?>
+
+    <?php //echo $form->field($model, 'release_time')->textInput() ?>
+
+    <?php //echo $form->field($model, 'language')->textInput(['maxlength' => true]) ?>
+
+    <?php //echo $form->field($model, 'region')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

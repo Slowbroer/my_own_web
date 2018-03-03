@@ -5,9 +5,11 @@ namespace backend\controllers;
 use Yii;
 use common\models\Game;
 use backend\models\GameSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\GameScore;
 
 /**
  * GameController implements the CRUD actions for Game model.
@@ -69,8 +71,13 @@ class GameController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $scores = GameScore::find()->select("title,score")->asArray()->all();
+
+        $game_scores = ArrayHelper::map($scores,'score','title');
+
         return $this->render('create', [
             'model' => $model,
+            'game_scores' => $game_scores
         ]);
     }
 
@@ -88,8 +95,14 @@ class GameController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+
+        $scores = GameScore::find()->select("title,score")->asArray()->all();
+
+        $game_scores = ArrayHelper::map($scores,'score','title');
+
         return $this->render('update', [
             'model' => $model,
+            'game_scores' => $game_scores
         ]);
     }
 
