@@ -67,13 +67,21 @@ class GameController extends Controller
     {
         $model = new Game();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if(!empty($model->score))
+            {
+                $score = GameScore::findOne(['id'=>$model->score]);
+                $model->score = $score->score;
+            }
+            if($model->save())
+            {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
-        $scores = GameScore::find()->select("title,score")->asArray()->all();
+        $scores = GameScore::find()->select("title,id")->asArray()->all();
 
-        $game_scores = ArrayHelper::map($scores,'score','title');
+        $game_scores = ArrayHelper::map($scores,'id','title');
 
         return $this->render('create', [
             'model' => $model,
@@ -91,14 +99,22 @@ class GameController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if(!empty($model->score))
+            {
+                $score = GameScore::findOne(['id'=>$model->score]);
+                $model->score = $score->score;
+            }
+            if($model->save())
+            {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
 
-        $scores = GameScore::find()->select("title,score")->asArray()->all();
+        $scores = GameScore::find()->select("title,id")->asArray()->all();
 
-        $game_scores = ArrayHelper::map($scores,'score','title');
+        $game_scores = ArrayHelper::map($scores,'id','title');
 
         return $this->render('update', [
             'model' => $model,

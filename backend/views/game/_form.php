@@ -21,8 +21,9 @@ use kartik\select2\Select2;
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
-    <?php echo $form->field($model, 'score', ['options'=>['style'=>'width:300px;']])
-        ->widget(Select2::className(),['data'=>$game_scores,'options'=>['placeholder'=>'请选择']]) ?>
+    <?php echo $form->field($model, 'score', ['options'=>['style'=>'width:500px;']])
+        ->widget(Select2::className(),['data'=>$game_scores,'options'=>['placeholder'=>'请选择']])->label("Score : ".intval($model->score)) ?>
+<!--    <h4>--><?php //echo $model->score; ?><!--</h4>-->
 
     <?= $form->field($model, 'picture')->fileInput(['maxlength' => true]) ?>
 
